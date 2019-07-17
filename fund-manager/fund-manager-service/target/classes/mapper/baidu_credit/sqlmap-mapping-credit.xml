@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhengtong.fsp.manager.mapper.baidu_credit.CreditMapper" >
+  <!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+  <!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+
+  <resultMap id="BaiduCreditMap" type="com.zhengtong.fsp.manager.pojo.BaiduCreditEntity" >
+    <id property="id" column="id" jdbcType="BIGINT" />
+    <id property="custId" column="cust_id" jdbcType="VARCHAR" />
+    <result property="name" column="cust_name" jdbcType="VARCHAR"/>
+    <result property="identityNo" column="id_no" jdbcType="VARCHAR"/>
+    <result property="mobile" column="cust_mobile" jdbcType="VARCHAR"/>
+    <result property="creditStatus" column="quota_status" jdbcType="TINYINT"/>
+    <result property="beginTime" column="begin_time" jdbcType="TIMESTAMP"/>
+    <result property="endTime" column="update_time" jdbcType="TIMESTAMP"/>
+    <result property="initialAmount" column="initial_Amount" jdbcType="DECIMAL"/>
+    <result property="creditAmount" column="credit_amout" jdbcType="DECIMAL"/>
+    <result property="totolAmount" column="total_account" jdbcType="DECIMAL"/>
+    <result property="account" column="account" jdbcType="DECIMAL"/>
+    <result property="frozenAccount" column="frozen_account" jdbcType="DECIMAL"/>
+    <result property="custLevel" column="cust_level" jdbcType="VARCHAR"/>
+    <result property="dayRate" column="Day_Rate" jdbcType="DECIMAL" />
+    <result property="processNode" column="process_node"  jdbcType="VARCHAR"/>
+    <result property="creditMsg" column="credit_msg"  jdbcType="VARCHAR"/>
+    <result property="creditExpirationDate" column="credit_expiration_date" jdbcType="TIMESTAMP"/>
+    <result property="vauleAccount" column="vauleAccount"  jdbcType="DECIMAL"/>
+    <result property="process_id" column="processId"  jdbcType="VARCHAR"/>
+    <result property="reasonMsg" column="ret_code"  jdbcType="VARCHAR"/>
+    <result property="creditScore" column="credit_score"  jdbcType="VARCHAR"/>
+    <result property="amountStatus" column="amount_status"  jdbcType="VARCHAR"/>
+
+  </resultMap>
+
+  <select id="queryCreditList" parameterType="Map" resultMap="BaiduCreditMap"  >
+    select   (case
+    when   DATEDIFF(DATE(tc.credit_expiration_date),DATE(tc.create_time))=29  and tp.credit_status=1 then '1'
+             when    DATE(tc.credit_expiration_date) &gt;= CURDATE() and DATEDIFF(DATE(tc.credit_expiration_date),DATE(tc.create_time))=179 and tp.credit_status=1 then '2'
+                when    DATE(tc.credit_expiration_date) &lt; CURDATE() and DATEDIFF(DATE(tc.credit_expiration_date),DATE(tc.create_time))=179  and  tp.credit_status=1 then '3'
+            else '4'
+             end)  as amount_status,
+    tp.process_id,(tc.total_account-tc.account-tc.frozen_account) as vauleAccount, tc.credit_expiration_date,t.cust_id,t.cust_name,t.cust_mobile,t.id_no,tp.credit_status,tp.begin_time,tp.update_time as update_time,tp.process_node,tc.quota_status,tc.total_account,tc.account,tc.frozen_account,tc.Day_Service_Rate,tc.credit_amout,tc.initial_Amount
+   
+    from t_custinfo t  left join t_credit_process tp on t.cust_id=tp.cust_id  left join t_credit_quota tc on tc.process_id=tp.process_id 
+    where 1=1 
+   
+      <if test="name != null and name != ''">
+   and t.cust_name like  CONCAT('%',#{name},'%')   
+      </if>
+           <if test="identityNo != null and identityNo != ''">
+ and  t.id_no  like  CONCAT('%',#{identityNo},'%') 
+      </if>
+           <if test="mobile != null and mobile != ''">
+  and t.cust_mobile like  CONCAT('%',#{mobile},'%')
+      </if>
+           <if test="custId != null and custId != ''">
+  and t.cust_id  like  CONCAT('%',#{custId},'%')
+      </if>
+           <if test="creditStatus != null and creditStatus != ''">
+  and tp.credit_status=#{creditStatus}
+      </if>
+     <if test="applyBegin != null and applyBegin != ''">
+and tp.begin_time between   DATE(#{applyBegin}) and DATE_ADD(DATE(#{applyEnd}),INTERVAL 1 DAY)
+      </if>
+     <if test="creditBegin != null and creditBegin != ''">
+and tp.update_time between DATE(#{creditBegin}) and DATE_ADD(DATE(#{creditEnd}),INTERVAL 1 DAY) and tp.credit_status=1
+      </if>
+     <if test="beginTime != null and beginTime != ''">
+and tp.begin_time between #{beginTime} and  DATE_ADD(DATE(#{endTime}),INTERVAL 1 DAY)
+      </if>
+     <if test="amountStatus != null and amountStatus != ''">
+
+  and     (case
+    when   DATEDIFF(DATE(tc.credit_expiration_date),DATE(tc.create_time))=29  and tp.credit_status=1 then '1'
+             when    DATE(tc.credit_expiration_date) &gt;= CURDATE() and DATEDIFF(DATE(tc.credit_expiration_date),DATE(tc.create_time))=179 and tp.credit_status=1 then '2'
+                when    DATE(tc.credit_expiration_date) &lt; CURDATE() and DATEDIFF(DATE(tc.credit_expiration_date),DATE(tc.create_time))=179  and  tp.credit_status=1 then '3'
+            else '4'
+             end) =#{amountStatus}
+
+      </if>
+
+  
+  </select>
+  
+  <select id="selectByProcessId" parameterType="java.lang.String" resultMap="BaiduCreditMap" >
+  select  tp.process_node,tp.credit_msg,t.cust_level,tc.Day_Rate,te.credit_score,tp.ret_code
+    from t_credit_process tp    left join  t_custinfo t on t.cust_id=tp.cust_id  left join t_credit_quota tc on tc.process_id=tp.process_id
+    left join t_credit_expanding te on te.process_id=tp.process_id
+  where    tp.process_id=#{processId} 
+  
+  </select>
+
+
+  
+</mapper>

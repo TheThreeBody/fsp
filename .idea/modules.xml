@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/fsp.iml" filepath="$PROJECT_DIR$/fsp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fsp-commons/fsp-commons.iml" filepath="$PROJECT_DIR$/fsp-commons/fsp-commons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fund-manager/fund-manager.iml" filepath="$PROJECT_DIR$/fund-manager/fund-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fund-manager/fund-manager-pojo/fund-manager-pojo.iml" filepath="$PROJECT_DIR$/fund-manager/fund-manager-pojo/fund-manager-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fund-manager/fund-manager-service/fund-manager-service.iml" filepath="$PROJECT_DIR$/fund-manager/fund-manager-service/fund-manager-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fund-manager/fund-manager-web/fund-manager-web.iml" filepath="$PROJECT_DIR$/fund-manager/fund-manager-web/fund-manager-web.iml" />
+    </modules>
+  </component>
+</project>

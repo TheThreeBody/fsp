@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhengtong.fsp.manager.mapper.vocs.ChannelMapper" >
+  <!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+  <!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+  <sql id="channelAttributes">
+     id,
+    c_name,
+    c_delete_status,
+    c_locked,
+    c_description,
+    c_creator_name,
+    c_create_time,
+    c_update_time,
+    c_update_by
+  </sql>
+
+  <resultMap id="channelMap" type="com.zhengtong.fsp.manager.pojo.ChannelEntity" >
+    <id property="id" column="id"/>
+    <result property="channelName" column="c_name"/>
+    <result property="deleteStatus" column="c_delete_status"/>
+    <result property="locked" column="c_locked"/>
+    <result property="description" column="c_description"/>
+    <result property="creatorName" column="c_creator_name"/>
+    <result property="createTime" column="c_create_time"/>
+    <result property="updateTime" column="c_update_time"/>
+    <result property="updateBy" column="c_update_by"/>
+    <collection property="userList" column="id" ofType="com.zhengtong.fsp.manager.pojo.UserEntity">
+      <id property="id" column="id"/>
+      <result property="channelId" column="u_channel_id"/>
+      <result property="userName" column="u_name" />
+      <result property="accountName" column="u_account_name"/>
+      <result property="password" column="u_password"/>
+      <result property="deleteStatus" column="u_delete_status"/>
+      <result property="locked" column="u_locked"/>
+      <result property="description" column="u_description"/>
+      <result property="credentialsSalt" column="u_credentials_salt"/>
+      <result property="creatorName" column="u_creator_name"/>
+      <result property="createTime" column="u_create_time"/>
+      <result property="updateTime" column="u_update_time"/>
+    </collection>
+    <collection property="roleList" column="id" ofType="com.zhengtong.fsp.manager.pojo.RoleEntity">
+      <id property="id" column="id"/>
+      <result property="name" column="r_name"/>
+      <result property="key" column="r_key"/>
+      <result property="status" column="r_status"/>
+      <result property="description" column="r_description"/>
+      <result property="createTime" column="r_create_time"/>
+      <result property="updateTime" column="r_update_time"/>
+    </collection>
+  </resultMap>
+
+  <select id="queryListByPage" parameterType="map" resultMap="channelMap" flushCache="true" useCache="true">
+    select
+    <include refid="channelAttributes" />
+    from tb_channel
+    <where>
+      <if test="name != null and name != ''">
+        c_name=#{name}
+      </if>
+    </where>
+  </select>
+
+
+  <select id="selectByPrimaryKey" resultMap="channelMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="channelAttributes" />
+    from tb_channel
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_channel
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhengtong.fsp.manager.pojo.ChannelEntity" >
+    insert into tb_channel (id, c_name, c_delete_status, 
+      c_locked, c_description, c_creator_name,
+      c_create_time, c_update_time, c_update_by
+      )
+    values (#{id,jdbcType=INTEGER}, #{channelName,jdbcType=VARCHAR}, #{deleteStatus,jdbcType=INTEGER},
+      #{locked,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhengtong.fsp.manager.pojo.ChannelEntity" >
+    insert into tb_channel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="channelName != null" >
+        c_name,
+      </if>
+      <if test="deleteStatus != null" >
+        c_delete_status,
+      </if>
+      <if test="locked != null" >
+        c_locked,
+      </if>
+      <if test="description != null" >
+        c_description,
+      </if>
+      <if test="creatorName != null" >
+        c_creator_name,
+      </if>
+      <if test="createTime != null" >
+        c_create_time,
+      </if>
+      <if test="updateTime != null" >
+        c_update_time,
+      </if>
+      <if test="updateBy != null" >
+        c_update_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="channelName != null" >
+        #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteStatus != null" >
+        #{deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="locked != null" >
+        #{locked,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null" >
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhengtong.fsp.manager.pojo.ChannelEntity" >
+    update tb_channel
+    <set >
+      <if test="channelName != null" >
+        c_name = #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteStatus != null" >
+        c_delete_status = #{deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="locked != null" >
+        c_locked = #{locked,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        c_description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null" >
+        c_creator_name = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        c_create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        c_update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        c_update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhengtong.fsp.manager.pojo.ChannelEntity" >
+    update tb_channel
+    set c_name = #{channelName,jdbcType=VARCHAR},
+      c_delete_status = #{deleteStatus,jdbcType=INTEGER},
+      c_locked = #{locked,jdbcType=INTEGER},
+      c_description = #{description,jdbcType=VARCHAR},
+      c_creator_name = #{creatorName,jdbcType=VARCHAR},
+      c_create_time = #{createTime,jdbcType=TIMESTAMP},
+      c_update_time = #{updateTime,jdbcType=TIMESTAMP},
+      c_update_by = #{updateBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

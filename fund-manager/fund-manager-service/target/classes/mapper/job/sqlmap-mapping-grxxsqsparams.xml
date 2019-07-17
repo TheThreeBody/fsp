@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhengtong.fsp.manager.mapper.job.grxxsqs.GrxxsqsParamsMapper">
+
+    <resultMap id="BaseResultMap" type="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
+        <id column="grxxsqs_id" property="grxxsqsId"/>
+        <result column="grxxsqs_uuid" property="grxxsqsUuid"/>
+        <result column="product_type" property="productType"/>
+        <result column="cust_id" property="custId"/>
+        <result column="contact_type" property="contactType"/>
+        <result column="credit_time" property="creditTime"/>
+        <result column="cust_id_no" property="custIdNo"/>
+        <result column="cust_name" property="custName"/>
+        <result column="create_time" property="createTime"/>
+        <result column="cust_mobile" property="custMobile"/>
+        <result column="params_bk1" property="paramsBk1"/>
+        <result column="params_bk2" property="paramsBk2"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        grxxsqs_id, grxxsqs_uuid, product_type, cust_id, contact_type, credit_time, cust_id_no,
+        cust_name, create_time, cust_mobile, params_bk1, params_bk2, update_time
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from t_grxxsqs_params
+        where grxxsqs_id = #{grxxsqsId}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_grxxsqs_params
+        where grxxsqs_id = #{grxxsqsId}
+    </delete>
+
+    <insert id="insert" parameterType="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
+        insert into t_grxxsqs_params (grxxsqs_id, grxxsqs_uuid, product_type,
+        cust_id, contact_type, credit_time,
+        cust_id_no, cust_name, create_time,
+        cust_mobile, params_bk1, params_bk2,
+        update_time)
+        values (#{grxxsqsId}, #{grxxsqsUuid}, #{productType},
+        #{custId}, #{contactType}, #{creditTime},
+        #{custIdNo}, #{custName}, #{createTime},
+        #{custMobile}, #{paramsBk1}, #{paramsBk2},
+        #{updateTime})
+    </insert>
+    <insert id="insertSelective" parameterType="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
+        insert into t_grxxsqs_params
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="grxxsqsId != null">
+                grxxsqs_id,
+            </if>
+            <if test="grxxsqsUuid != null">
+                grxxsqs_uuid,
+            </if>
+            <if test="productType != null">
+                product_type,
+            </if>
+            <if test="custId != null">
+                cust_id,
+            </if>
+            <if test="contactType != null">
+                contact_type,
+            </if>
+            <if test="creditTime != null">
+                credit_time,
+            </if>
+            <if test="custIdNo != null">
+                cust_id_no,
+            </if>
+            <if test="custName != null">
+                cust_name,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="custMobile != null">
+                cust_mobile,
+            </if>
+            <if test="paramsBk1 != null">
+                params_bk1,
+            </if>
+            <if test="paramsBk2 != null">
+                params_bk2,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="grxxsqsId != null">
+                #{grxxsqsId},
+            </if>
+            <if test="grxxsqsUuid != null">
+                #{grxxsqsUuid},
+            </if>
+            <if test="productType != null">
+                #{productType},
+            </if>
+            <if test="custId != null">
+                #{custId},
+            </if>
+            <if test="contactType != null">
+                #{contactType},
+            </if>
+            <if test="creditTime != null">
+                #{creditTime},
+            </if>
+            <if test="custIdNo != null">
+                #{custIdNo},
+            </if>
+            <if test="custName != null">
+                #{custName},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="custMobile != null">
+                #{custMobile},
+            </if>
+            <if test="paramsBk1 != null">
+                #{paramsBk1},
+            </if>
+            <if test="paramsBk2 != null">
+                #{paramsBk2},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime}
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
+        update t_grxxsqs_params
+        <set>
+            <if test="grxxsqsUuid != null">
+                grxxsqs_uuid = #{grxxsqsUuid},
+            </if>
+            <if test="productType != null">
+                product_type = #{productType},
+            </if>
+            <if test="custId != null">
+                cust_id = #{custId},
+            </if>
+            <if test="contactType != null">
+                contact_type = #{contactType},
+            </if>
+            <if test="creditTime != null">
+                credit_time = #{creditTime},
+            </if>
+            <if test="custIdNo != null">
+                cust_id_no = #{custIdNo},
+            </if>
+            <if test="custName != null">
+                cust_name = #{custName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="custMobile != null">
+                cust_mobile = #{custMobile},
+            </if>
+            <if test="paramsBk1 != null">
+                params_bk1 = #{paramsBk1},
+            </if>
+            <if test="paramsBk2 != null">
+                params_bk2 = #{paramsBk2},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime}
+            </if>
+        </set>
+        where grxxsqs_id = #{grxxsqsId}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
+        update t_grxxsqs_params
+        set grxxsqs_uuid = #{grxxsqsUuid},
+        product_type = #{productType},
+        cust_id = #{custId},
+        contact_type = #{contactType},
+        credit_time = #{creditTime},
+        cust_id_no = #{custIdNo},
+        cust_name = #{custName},
+        create_time = #{createTime},
+        cust_mobile = #{custMobile},
+        params_bk1 = #{paramsBk1},
+        params_bk2 = #{paramsBk2},
+        update_time = #{updateTime}
+        where grxxsqs_id = #{grxxsqsId}
+    </update>
+</mapper>

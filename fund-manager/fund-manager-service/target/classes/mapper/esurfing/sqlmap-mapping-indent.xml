@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhengtong.fsp.manager.mapper.esurfing.IndentMapper">
+  <!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+  <!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+    <resultMap id="indentMap" type="com.zhengtong.fsp.manager.pojo.IndentEntity" >
+    <id property="id" column="id"/>
+    <result property="vbsId" column="vbsId"/>
+    <result property="orderStatus" column="orderStatus"/>
+    <result property="extOrderId" column="extOrderId"/>
+    <result property="custId" column="custId"/>
+    <result property="idCardNo" column="idCardNo"/>
+    <result property="name" column="name"/>
+    </resultMap>
+
+    <resultMap id="frozenMap" type="com.zhengtong.fsp.manager.pojo.FrozenEntity" >
+        <id property="credit_id" column="creditId"/>
+        <result property="credit_amount" column="creditAmount"/>
+        <result property="credit_amount_frozen" column="creditAmountFrozen"/>
+        <result property="credit_amount_used" column="creditAmountUsed"/>
+        <result property="credit_expire" column="creditExpire"/>
+        <result property="credit_status" column="creditStatus"/>
+        <result property="order_id" column="orderId"/>
+    </resultMap>
+
+  <!--<select id="queryGobooIndentListByPage" parameterType="map" resultMap="indentMap" flushCache="true" useCache="true">-->
+    <!--select-->
+    <!--ext.vbs_bid as vbsId,-->
+    <!--o.order_status as orderStatus,-->
+    <!--ext.ext_order_id as extOrderId,-->
+    <!--o.cus_id as custId,-->
+    <!--cus.cus_identity as idCardNo,-->
+    <!--cus.cus_name as name-->
+    <!--from t_order o-->
+    <!--left join t_order_extinfo ext on-->
+    <!--o.order_id=ext.order_id-->
+    <!--left join t_cus_baseinfo cus on-->
+    <!--o.cus_id=cus.cus_id-->
+    <!--where cus.cus_status='1'-->
+    <!--<if test="idCardNo != null and  idCardNo != ''" >-->
+      <!--and cus.cus_identity = #{idCardNo}-->
+    <!--</if>-->
+    <!--<if test="vbsId != null and  vbsId != ''" >-->
+      <!--and ext.vbs_bid = #{vbsId}-->
+    <!--</if>-->
+  <!--</select>-->
+
+  <select id="queryEsurfingOrderInfo" parameterType="map" resultMap="indentMap" flushCache="true" useCache="true">
+    select
+    ext.vbs_bid as vbsId,
+    o.order_status as orderStatus,
+    ext.ext_order_id as extOrderId,
+    o.cus_id as custId,
+    cus.cus_identity as idCardNo,
+    cus.cus_name as name
+      ,o.order_id as orderId
+    from t_order o
+    left join t_order_extinfo ext on
+    o.order_id=ext.order_id
+    left join t_cus_baseinfo cus on
+    o.cus_id=cus.cus_id
+    where cus.cus_status='1'
+    <if test="idCardNo != null and  idCardNo != ''" >
+      and cus.cus_identity = #{idCardNo}
+    </if>
+    <if test="vbsId != null and  vbsId != ''" >
+      and ext.vbs_bid = #{vbsId}
+    </if>
+    <if test="orderId != null and  orderId != ''" >
+        and o.order_id = #{orderId}
+    </if>
+  </select>
+
+
+  
+  <!--<select id="queryHebaoOrderInfo" parameterType="map" resultMap="indentMap" flushCache="true" useCache="true">-->
+    <!--select-->
+    <!--ext.vbs_bid as vbsId,-->
+    <!--o.order_status as orderStatus,-->
+    <!--ext.ext_order_id as extOrderId,-->
+    <!--o.cus_id as custId,-->
+    <!--cus.cus_identity as idCardNo,-->
+    <!--cus.cus_name as name-->
+    <!--from t_order o-->
+    <!--left join t_order_extinfo ext on-->
+    <!--o.order_id=ext.order_id-->
+    <!--left join t_cus_baseinfo cus on-->
+    <!--o.cus_id=cus.cus_id-->
+    <!--where cus.cus_status='1'-->
+    <!--<if test="idCardNo != null and  idCardNo != ''" >-->
+      <!--and cus.cus_identity = #{idCardNo}-->
+    <!--</if>-->
+    <!--<if test="vbsId != null and  vbsId != ''" >-->
+      <!--and ext.vbs_bid = #{vbsId}-->
+    <!--</if>-->
+    <!--<if test="orderId != null and  orderId != ''" >-->
+        <!--and o.order_id= #{orderId}-->
+    <!--</if>-->
+  <!--</select>-->
+
+    <select id="queryEsurfingFrozenAmount" parameterType="map" resultMap="frozenMap">
+        select
+        DISTINCT
+        tcc.credit_id,
+        tcc.credit_amount,
+        tcc.credit_amount_frozen,
+        tcc.credit_amount_used,
+        tcc.credit_expire,
+        tcc.credit_status
+        ,o.order_id
+        from t_cus_credit tcc
+        JOIN t_order o
+        ON o.cus_id = tcc.cus_id
+        join t_order_extinfo ext on
+        o.order_id = ext.order_id
+        <where>
+            tcc.credit_status = 1
+            <if test="custId != null and  custId != ''" >
+                AND tcc.cus_id = #{custId}
+            </if>
+            <if test="vbsId != null and  vbsId != ''" >
+                AND ext.vbs_bid = #{vbsId}
+            </if>
+        </where>
+    </select>
+    <select id="queryEsurfingVBSID" parameterType="map" resultType="java.util.Map">
+        select
+        DISTINCT
+        tcc.credit_id as creditId,
+        o.order_id as orderId,
+        ext.vbs_bid as vbsId
+        from t_cus_credit tcc
+        JOIN t_order o
+        ON o.cus_id = tcc.cus_id
+        join t_order_extinfo ext on
+        o.order_id=ext.order_id
+        <where>
+            <if test="creditId != null and  creditId != ''" >
+                AND tcc.credit_id = #{creditId}
+            </if>
+            <if test="orderId != null and  orderId != ''" >
+                AND o.order_id = #{orderId}
+            </if>
+        </where>
+    </select>
+
+    <update id="modifyFrozenCustCredit" parameterType="map" flushCache="true">
+        UPDATE t_cus_credit
+        SET
+        credit_amount_frozen = '0.00',
+        credit_amount_used = '0.00'
+        where credit_id = #{creditId}
+    </update>
+
+    <update id="modifyFrozenOrder" parameterType="map" flushCache="true">
+        UPDATE t_order
+        SET
+            order_status = '5',
+        surfing_msg = #{surfingMsg}
+        where order_id = #{orderId}
+    </update>
+
+</mapper>

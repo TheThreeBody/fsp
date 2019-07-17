@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhengtong.fsp.manager.mapper.baidu_credit.IssueDataMapper">
+	<select id="queryIssue" resultType="java.util.Map">
+		select t.issue_id as id,t.loan_id,t.cur_date, t.issue_type as exception_type,t.issue_time as issue_time, t.handle_status as handle_status,tos.vbs_bid as vbs_id ,t.handle_person,t.handle_time,t.handle_msg,t.issue_msg as exception_msg 
+		from (select * from t_account_issue where (handle_status = 0 or handle_status = 1) and cur_date &gt;= #{beginDate,jdbcType=VARCHAR} and cur_date &lt;= #{endDate,jdbcType=VARCHAR} ) t
+		left join t_order tor on tor.bd_loan_id = t.loan_id 
+		left join t_order_status tos on tos.order_id = tor.order_id
+		union
+		select t.id,'' as loan_id,t.cur_date,t.exception_type,t.issue_time,t.handle_status as handle_status,'' as vbs_bid ,handle_person,t.handle_time,t.handle_msg,t.exception_msg as exception_msg
+		from t_reconciliation_exception_record  t where (t.handle_status = 0 or t.handle_status = 1) and cur_date &gt;= #{beginDate,jdbcType=VARCHAR} and cur_date &lt;= #{endDate,jdbcType=VARCHAR}
+	</select>
+	<select id ="queryIssueDetail" resultType="java.util.Map">
+		<if test='type == "bill"'>
+			select * from t_repay_plan t where t.id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test='type == "instruncation"'>
+			select * from t_loan_repay t where t.id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test='type == "item"'>
+			select * from t_repay_item t where t.id = #{id,jdbcType=BIGINT}
+		</if>
+	</select>
+	<update id="updateIssueData" parameterType="java.util.Map">
+		<if test = 'type == "bill"'>
+			update t_account_issue t set t.handle_msg = #{handleMsg,jdbcType=VARCHAR},t.handle_status = 1,t.update_time = #{handleTime,jdbcType=TIMESTAMP},
+			t.handle_person =#{person,jdbcType=VARCHAR},t.handle_time = #{handleTime,jdbcType=TIMESTAMP}
+			 where t.issue_id = #{id,jdbcType=BIGINT} and t.issue_type ='bill'
+		</if>
+		<if test = 'type == "instruncation"'>
+			update t_account_issue t set t.handle_msg = #{handleMsg,jdbcType=VARCHAR},t.handle_status = 1,t.update_time = #{handleTime,jdbcType=TIMESTAMP},
+			t.handle_person =#{person,jdbcType=VARCHAR},t.handle_time = #{handleTime,jdbcType=TIMESTAMP}
+			where t.issue_id = #{id,jdbcType=BIGINT} and t.issue_type ='instruncation'
+		</if>
+		<if test = 'type == "item"'>
+			update t_account_issue t set t.handle_msg = #{handleMsg,jdbcType=VARCHAR},t.handle_status = 1,t.update_time = #{handleTime,jdbcType=TIMESTAMP},
+			t.handle_person =#{person,jdbcType=VARCHAR},t.handle_time = #{handleTime,jdbcType=TIMESTAMP}
+			where t.issue_id= #{id,jdbcType=BIGINT} and t.issue_type ='item'
+		</if>
+		<if test = 'type == "file"'>
+			update t_reconciliation_exception_record t set t.handle_msg = #{handleMsg,jdbcType=VARCHAR},t.handle_status = 1,t.update_time = #{handleTime,jdbcType=TIMESTAMP},
+			t.handle_person =#{person,jdbcType=VARCHAR},t.handle_time = #{handleTime,jdbcType=TIMESTAMP} 
+			where t.id = #{id,jdbcType=BIGINT}
+		</if>
+	</update>
+	<select id ="queryloanData" parameterType="java.util.Map" resultType="java.util.Map">
+		select tos.order_status_id,tos.order_id,tos.vbs_bid,tos.vbs_notify_number,inf.cust_id,inf.cust_name,inf.id_no,inf.cust_mobile,td.pay_no,td.to_bank_name,td.bank_card_num,
+		tos.create_time,tos.loan_rel_time,td.amount,tco.request_apply_period  as loan_period,tos.order_status,lvnr.remark,tlor.operation_status,tlor.operation_msg
+		from t_order_status tos 
+		left join t_order td on td.order_id = tos.order_id
+		left join t_custinfo inf on (inf.cust_id = td.cust_id)
+		left join t_create_contract tco on tco.loan_id = td.bd_loan_id
+		left join t_loan_operation_record tlor on tlor.vbs_bid = tos.vbs_bid
+		left join (select * from t_loan_vbs_notify_recode lvn 
+		where lvn.loan_notify_id in(select max(loan_notify_id) from t_loan_vbs_notify_recode where loan_status = 3 group by vbs_bid)) lvnr on lvnr.vbs_bid = tos.vbs_bid 
+		<where>
+			<if test = "applyBegin != null">
+				tos.create_time &gt;= #{applyBegin,jdbcType=TIMESTAMP}
+			</if>
+			<if test = "applyEnd != null">
+				and tos.create_time &lt;= #{applyEnd,jdbcType=TIMESTAMP}
+			</if>
+			<if test="loanBegin != null">
+				and tos.loan_rel_time  &gt;= #{loanBegin,jdbcType=TIMESTAMP}
+			</if>
+			<if test="loanEnd != null ">
+				and tos.loan_rel_time  &lt;= #{loanEnd,jdbcType=TIMESTAMP}
+			</if>
+			<if test ='custId != null and custId != ""'>
+				and td.cust_id = #{custId,jdbcType=VARCHAR}
+			</if>
+			<if test ='custName != null and custName != ""'>
+				and inf.cust_name = #{custName,jdbcType=VARCHAR}
+			</if>
+			<if test ='custCardNo != null and custCardNo != ""'>
+				and inf.id_no = #{custCardNo,jdbcType=VARCHAR}
+			</if>
+			<if test ='custMobile != null and custMobile != ""'>
+				and inf.cust_mobile = #{custMobile,jdbcType=VARCHAR}
+			</if>
+			<if test ='loanNo != null and loanNo != ""'>
+				and td.pay_no = #{loanNo,jdbcType=VARCHAR}
+			</if>
+			<if test ='loanStatus != null and loanStatus != "" and loanStatus == "4"'>
+			 	and (tos.order_status = 4 or tos.order_status = 5 )
+			</if>
+			<if test ='loanStatus != null and loanStatus != "" and loanStatus == "6"'>
+			 	and (tos.order_status = 7)
+			</if>
+			<if test ='loanStatus != null and loanStatus != "" and loanStatus == "3"'>
+			 	and (tos.order_status = 3 )
+			</if>
+			<if test ='loanStatus != null and loanStatus != "" and loanStatus == "0"'>
+			 	and (tos.order_status = 6 or tos.order_status = 2)
+			</if>
+			<if test ='vbsNO != null and vbsNO != ""'>
+				and td.bd_loan_id = #{vbsNO,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	<update id="updateLoanData">
+		update t_order_status t set t.order_status = #{order_status,jdbcType=TINYINT} , update_time = #{update_time,jdbcType=TIMESTAMP}  where t.vbs_bid =#{vbs_bid,jdbcType=INTEGER}
+	</update>
+	<insert id="insertLoanOperationRecord">
+		 insert into t_loan_operation_record(vbs_bid,operation_status,operation_msg,operation_person,create_time,update_time)
+		 values(#{vbs_bid,jdbcType=INTEGER},#{operation_status,jdbcType=TINYINT},#{opetation_msg,jdbcType=VARCHAR},#{operation_person,jdbcType=VARCHAR},
+		 #{create_time,jdbcType=TIMESTAMP},#{update_time,jdbcType=TIMESTAMP})
+	</insert>
+	<update id="updateAccountStatus">
+		update t_account_status t set t.handle_status =1 , t.update_time = now() where t.loan_id=#{loanId,jdbcType=VARCHAR} and t.issue_type = #{type,jdbcType=VARCHAR};
+	</update>
+	<update id ="releaseFrozenAccount">
+		update t_credit_quota tcq inner join (
+		select tor.cust_id,tor.amount from t_order tor where  tor.order_id =(
+		select tos.order_id from t_order_status  tos where tos.vbs_bid =#{vbsBid,jdbcType=INTEGER}))tmp 
+		on (tmp.cust_id = tcq.cust_id and tcq.quota_status = 1) 
+		set tcq.frozen_account = tcq.frozen_account-tmp.amount,tcq.update_time=#{updateTime,jdbcType=TIMESTAMP}
+	</update>
+	<select id="selectLoanOperationRecord" resultType="java.util.Map">
+	select * from t_loan_operation_record t where t.vbs_bid =#{vbsBid,jdbcType=INTEGER}
+	</select>
+	<update id="updateLoanOperationRecord" parameterType="java.util.Map">
+		update t_loan_operation_record t set t.operation_status=#{operation_status,jdbcType=TINYINT},
+		t.operation_msg= #{opetation_msg,jdbcType=VARCHAR},t.operation_person=#{operation_person,jdbcType=VARCHAR},
+		t.update_time = #{update_time,jdbcType=TIMESTAMP} where t.vbs_bid = #{vbs_bid,jdbcType=INTEGER}
+	</update>
+	<update id="updateOrderStatusVbsNotifyNumber">
+		update t_order_status t set t.vbs_notify_number =#{noifyNumber,jdbcType=INTEGER} where t.vbs_bid =#{vbsBid,jdbcType=INTEGER}
+	</update>
+</mapper>
