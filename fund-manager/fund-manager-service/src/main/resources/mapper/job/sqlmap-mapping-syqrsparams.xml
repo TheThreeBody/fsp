@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhengtong.fsp.manager.mapper.job.syqrs.SyqrsParamsMapper">
+
+    <resultMap id="baseResultMap" type="com.zhengtong.fsp.manager.pojo.job.syqrs.SyqrsParamsEntity">
+        <id column="syqrs_id" property="syqrsId"/>
+        <result column="syqrs_uuid" property="syqrsUuid"/>
+        <result column="cust_id" property="custId"/>
+        <result column="cust_name" property="custName"/>
+        <result column="cust_id_no" property="custIdNo"/>
+        <result column="cust_mobile" property="custMobile"/>
+        <result column="loan_amount" property="loanAmount"/>
+        <result column="consume_time" property="consumeTime"/>
+        <result column="final_repayment_date" property="finalRepaymentDate"/>
+        <result column="repayment_account" property="repaymentAccount"/>
+        <result column="repayment_cust_name" property="repaymentCustName"/>
+        <result column="guarantee_fee_rate" property="guaranteeFeeRate"/>
+        <result column="gurantee_fee" property="guranteeFee"/>
+        <result column="overdue_payment" property="overduePayment"/>
+        <result column="repayment_date" property="repaymentDate"/>
+        <result column="credit_side" property="creditSide"/>
+        <result column="guarantor" property="guarantor"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+          syqrs_id,
+          syqrs_uuid,
+          cust_id,
+          cust_name,
+          cust_id_no,
+          cust_mobile,
+          loan_amount,
+          consume_time,
+          final_repayment_date,
+          repayment_account,
+          repayment_cust_name,
+          guarantee_fee_rate,
+          gurantee_fee,
+          overdue_payment,
+          repayment_date,
+          credit_side,
+          guarantor,
+          create_time,
+          update_time
+  </sql>
+
+    <sql id="syqrs_Column_List">
+      tsp.syqrs_id,
+      tsp.syqrs_uuid,
+      tsp.cust_id,
+      tsp.cust_name,
+      tsp.cust_id_no,
+      tsp.cust_mobile,
+      tsp.loan_amount,
+      tsp.consume_time,
+      tsp.final_repayment_date,
+      tsp.repayment_account,
+      tsp.repayment_cust_name,
+      tsp.guarantee_fee_rate,
+      tsp.gurantee_fee,
+      tsp.overdue_payment,
+      tsp.repayment_date,
+      tsp.credit_side,
+      tsp.guarantor,
+      tsp.create_time,
+      tsp.update_time
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="baseResultMap" parameterType="java.lang.Long">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        t_syqrs_params
+        WHERE
+        syqrs_id = #{syqrsId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+      DELETE FROM t_syqrs_params
+      WHERE
+       syqrs_id = #{syqrsId}
+    </delete>
+
+    <insert id="insert" parameterType="com.zhengtong.fsp.manager.pojo.job.syqrs.SyqrsParamsEntity">
+    INSERT INTO t_syqrs_params (
+      syqrs_uuid,
+      cust_id,
+      cust_name,
+      cust_id_no,
+      cust_mobile,
+      loan_amount,
+      consume_time,
+      final_repayment_date,
+      repayment_account,
+      repayment_cust_name,
+      guarantee_fee_rate,
+      gurantee_fee,
+      overdue_payment,
+      repayment_date,
+      credit_side,
+      guarantor,
+      create_time,
+      update_time)
+    VALUES (
+      #{syqrsUuid},
+      #{custId},
+      #{custName},
+      #{custIdNo},
+      #{custMobile},
+      #{loanAmount},
+      #{consumeTime},
+      #{finalRepaymentDate},
+      #{repaymentAccount},
+      #{repaymentCustName},
+      #{guaranteeFeeRate},
+      #{guranteeFee},
+      #{overduePayment},
+      #{repaymentDate},
+      #{creditSide},
+      #{guarantor},
+      #{createTime},
+      #{updateTime}
+      )
+  </insert>
+
+    <insert id="insertSelective" parameterType="com.zhengtong.fsp.manager.pojo.job.syqrs.SyqrsParamsEntity">
+        insert into t_syqrs_params
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="syqrsId != null">
+                syqrs_id,
+            </if>
+            <if test="syqrsUuid != null">
+                syqrs_uuid,
+            </if>
+            <if test="custId != null">
+                cust_id,
+            </if>
+            <if test="custName != null">
+                cust_name,
+            </if>
+            <if test="custIdNo != null">
+                cust_id_no,
+            </if>
+            <if test="custMobile != null">
+                cust_mobile,
+            </if>
+            <if test="loanAmount != null">
+                loan_amount,
+            </if>
+            <if test="consumeTime != null">
+                consume_time,
+            </if>
+            <if test="finalRepaymentDate != null">
+                final_repayment_date,
+            </if>
+            <if test="repaymentAccount != null">
+                repayment_account,
+            </if>
+            <if test="repaymentCustName != null">
+                repayment_cust_name,
+            </if>
+            <if test="guaranteeFeeRate != null">
+                guarantee_fee_rate,
+            </if>
+            <if test="guranteeFee != null">
+                gurantee_fee,
+            </if>
+            <if test="overduePayment != null">
+                overdue_payment,
+            </if>
+            <if test="repaymentDate != null">
+                repayment_date,
+            </if>
+            <if test="creditSide != null">
+                credit_side,
+            </if>
+            <if test="guarantor != null">
+                guarantor,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="syqrsId != null">
+                #{syqrsId,jdbcType=BIGINT},
+            </if>
+            <if test="syqrsUuid != null">
+                #{syqrsUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="custId != null">
+                #{custId,jdbcType=INTEGER},
+            </if>
+            <if test="custName != null">
+                #{custName,jdbcType=VARCHAR},
+            </if>
+            <if test="custIdNo != null">
+                #{custIdNo,jdbcType=VARCHAR},
+            </if>
+            <if test="custMobile != null">
+                #{custMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="loanAmount != null">
+                #{loanAmount,jdbcType=VARCHAR},
+            </if>
+            <if test="consumeTime != null">
+                #{consumeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="finalRepaymentDate != null">
+                #{finalRepaymentDate,jdbcType=VARCHAR},
+            </if>
+            <if test="repaymentAccount != null">
+                #{repaymentAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="repaymentCustName != null">
+                #{repaymentCustName,jdbcType=VARCHAR},
+            </if>
+            <if test="guaranteeFeeRate != null">
+                #{guaranteeFeeRate,jdbcType=VARCHAR},
+            </if>
+            <if test="guranteeFee != null">
+                #{guranteeFee,jdbcType=VARCHAR},
+            </if>
+            <if test="overduePayment != null">
+                #{overduePayment,jdbcType=VARCHAR},
+            </if>
+            <if test="repaymentDate != null">
+                #{repaymentDate,jdbcType=TINYINT},
+            </if>
+            <if test="creditSide != null">
+                #{creditSide,jdbcType=TINYINT},
+            </if>
+            <if test="guarantor != null">
+                #{guarantor,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhengtong.fsp.manager.pojo.job.syqrs.SyqrsParamsEntity">
+        UPDATE t_syqrs_params
+        <set>
+            <if test="syqrsUuid != null">
+                syqrs_uuid = #{syqrsUuid},
+            </if>
+            <if test="custId != null">
+                cust_id = #{custId},
+            </if>
+            <if test="custName != null">
+                cust_name = #{custName},
+            </if>
+            <if test="custIdNo != null">
+                cust_id_no = #{custIdNo},
+            </if>
+            <if test="custMobile != null">
+                cust_mobile = #{custMobile},
+            </if>
+            <if test="loanAmount != null">
+                loan_amount = #{loanAmount},
+            </if>
+            <if test="consumeTime != null">
+                consume_time = #{consumeTime},
+            </if>
+            <if test="finalRepaymentDate != null">
+                final_repayment_date = #{finalRepaymentDate},
+            </if>
+            <if test="repaymentAccount != null">
+                repayment_account = #{repaymentAccount},
+            </if>
+            <if test="repaymentCustName != null">
+                repayment_cust_name = #{repaymentCustName},
+            </if>
+            <if test="guaranteeFeeRate != null">
+                guarantee_fee_rate = #{guaranteeFeeRate},
+            </if>
+            <if test="guranteeFee != null">
+                gurantee_fee = #{guranteeFee},
+            </if>
+            <if test="overduePayment != null">
+                overdue_payment = #{overduePayment},
+            </if>
+            <if test="repaymentDate != null">
+                repayment_date = #{repaymentDate},
+            </if>
+            <if test="creditSide != null">
+                credit_side = #{creditSide},
+            </if>
+            <if test="guarantor != null">
+                guarantor = #{guarantor},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        WHERE
+        syqrs_id = #{syqrsId}
+    </update>
+
+    <!--需要生成合同的数据查询-->
+    <select id="findSyqrsDataByParams" parameterType="java.lang.String" resultMap="baseResultMap">
+        SELECT
+        <include refid="syqrs_Column_List"/>
+        FROM t_syqrs_params tsp,t_syqrs_gener_status sgs
+        WHERE
+        tsp.syqrs_uuid = sgs.syqrs_uuid
+        <if test="consumeTime != null and consumeTime != ''">
+
+            AND DATE_FORMAT(sgs.create_time, '%Y-%m-%d') = #{consumeTime}
+        </if>
+        AND
+        sgs.generate_status != 1
+
+    </select>
+</mapper>

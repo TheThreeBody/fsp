@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhengtong.fsp.manager.mapper.baidu_credit.CashMapper" >
+  <!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+  <!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+
+  <resultMap id="CashMap" type="com.zhengtong.fsp.manager.pojo.CashEntity" >
+    <id property="id" column="id" jdbcType="BIGINT" />
+    <id property="transactionApplyId" column="transaction_apply_id" jdbcType="VARCHAR" />
+    <id property="custId" column="cust_id" jdbcType="VARCHAR" />
+    <result property="name" column="rel_name" jdbcType="VARCHAR"/>
+    <result property="identityNo" column="prcid" jdbcType="VARCHAR"/>
+    <result property="mobile" column="phonenumber" jdbcType="VARCHAR"/>
+    <result property="transactionNode" column="transaction_node" jdbcType="VARCHAR"/>
+    <result property="amount" column="cash_Amount" jdbcType="VARCHAR"/>
+    <result property="valueAmount" column="value_Amount" jdbcType="VARCHAR"/>
+    <result property="custLevel" column="cust_level" jdbcType="VARCHAR"/>
+    <result property="retCode" column="ret_Code" jdbcType="VARCHAR"/>
+    <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    <result property="beginTime" column="create_time" jdbcType="VARCHAR"/>
+    <result property="vauleAccount" column="vauleAccount" jdbcType="VARCHAR"/>
+    <result property="dayRate" column="Day_Rate" jdbcType="DECIMAL"/>
+    <result property="transactionId" column="transaction_Id" jdbcType="VARCHAR"/>
+    <result property="creditScore" column="credit_score" jdbcType="VARCHAR"/>
+    <result property="applyResult" column="apply_result" jdbcType="VARCHAR"/>
+    
+    
+  </resultMap>
+
+  <select id="queryCashList" parameterType="Map" resultMap="CashMap"  >
+  SELECT 
+tq.credit_expiration_date,ta.transaction_Id,(case  when ((tq.total_account-tq.account-tq.frozen_account)&lt;0) and  (ta.solution_exception='' )  then '2'
+ when ((tq.total_account-tq.account-tq.frozen_account)&lt;0) and  (ta.solution_exception!='' )  then '1'
+ when ((tq.total_account-tq.account-tq.frozen_account)&gt;=0) and  (ta.apply_result=0 )  then '0'
+  when ((tq.total_account-tq.account-tq.frozen_account)&gt;=0) and  (ta.apply_result=1 )  then '1'
+ end ) as apply_result, (tq.total_account-tq.account-tq.frozen_account) as vauleAccount,  ta.transaction_apply_id, ta.cust_id, rel_name ,prcid  ,phonenumber ,transaction_node ,cash_Amount , ta.create_time      
+ from 
+( SELECT MAX(g.credit_expiration_date) as credit_expiration_date ,g.transaction_apply_id FROM 
+(select  tg.credit_expiration_date,  tp.transaction_apply_id  from t_transaction_apply tp  ,
+ t_credit_quota tg
+ where  tg.cust_id=tp.cust_id  AND tg.quota_status=1 )
+as g GROUP BY g.transaction_apply_id) p ,t_transaction_apply ta,t_credit_quota tq  where ta.cust_id=tq.cust_id and p.transaction_apply_id=ta.transaction_apply_id and p.credit_expiration_date=tq.credit_expiration_date
+    <if test="name != null and name != ''">
+and rel_name like    CONCAT('%',#{name},'%')   
+      </if>
+           <if test="identityNo != null and identityNo != ''">
+ and  prcid like    CONCAT('%',#{identityNo},'%')  
+      </if>
+           <if test="mobile != null and mobile != ''">
+  and phonenumber  like    CONCAT('%',#{mobile},'%')  
+      </if>
+           <if test="custId != null and custId != ''">
+  and ta.cust_id  like    CONCAT('%',#{custId},'%')  
+      </if>
+           <if test="transactionId != null and transactionId != ''">
+  and ta.transaction_Id  like    CONCAT('%',#{transactionId},'%')
+      </if>
+           <if test="applyResult ==1 or applyResult ==0 ">
+  and ta.apply_result=#{applyResult}  and (tq.total_account-tq.account-tq.frozen_account)&gt;=0
+      </if>
+           <if test="applyResult ==2 ">
+  and (tq.total_account-tq.account-tq.frozen_account)&lt;0
+      </if>
+        <if test="applyBegin != null and applyBegin != ''">
+and ta.create_time between DATE(#{applyBegin}) and DATE_ADD(DATE(#{applyEnd}),INTERVAL 1 DAY)
+      </if>
+        <if test="beginTime != null and beginTime != ''">
+and ta.create_time between #{beginTime} and DATE_ADD(DATE(#{endTime}),INTERVAL 1 DAY)
+      </if>
+  
+  
+  </select>
+ <!--   <select id="findCashDetail" parameterType="java.lang.String" resultMap="CashMap"  >
+ select  te.credit_score, ta.transaction_Id,Day_Rate,cust_level,remark,  external_reasion_msg,ta.ret_Code,transaction_node    from t_transaction_apply   ta ,t_custinfo tc, t_credit_quota tq,t_credit_expanding te,t_credit_process tss where ta.cust_id=tc.cust_id  and tq.cust_id=tc.cust_id and te.process_id=tss.process_id
+ and tss.cust_id=tc.cust_id and tq.quota_status=1 and tq.credit_expiration_date&gt;=CURDATE() and transaction_apply_id=#{transactionApplyId}
+  </select> -->
+<select id="findCashDetail" parameterType="java.lang.String" resultMap="CashMap"  >
+ select  external_reasion_msg,ret_Code,transaction_node,remark    from t_transaction_apply  
+ where transaction_apply_id=#{transactionApplyId}
+  </select>
+
+<select id="solutionException" parameterType="Map">
+update t_transaction_apply set solution_exception=#{solutionException}
+where transaction_apply_id=#{transactionApplyId}
+
+</select>
+  
+</mapper>

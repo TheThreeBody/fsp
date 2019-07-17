@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>fund-manager</artifactId>
+        <groupId>com.zhengtong</groupId>
+        <version>1.0.0</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>fund-manager-web</artifactId>
+    <packaging>war</packaging>
+    <name>fund-manager-web</name>
+    <url>http://maven.apache.org</url>
+
+    <dependencies>
+        <!-- 对其它模块的依赖 -->
+        <dependency>
+            <groupId>com.zhengtong</groupId>
+            <artifactId>fsp-commons</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zhengtong</groupId>
+            <artifactId>fund-manager-pojo</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zhengtong</groupId>
+            <artifactId>fund-manager-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>fund-manager</finalName>
+        <plugins>
+            <!-- 代码生成 -->
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <overwrite>true</overwrite>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://localhost:8080/manager</url> <!-- tomcat管理路径 -->
+                    <server>Tomcat8</server> <!-- 与settings.xml文件中Server的id相同 -->
+                    <path>/webapps</path> <!-- 应用的部署位置 -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
