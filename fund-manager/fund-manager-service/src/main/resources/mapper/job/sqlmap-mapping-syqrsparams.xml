@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zhengtong.fsp.manager.mapper.job.syqrs.SyqrsParamsMapper">
+<mapper namespace="com.npsex.fsp.manager.mapper.job.syqrs.SyqrsParamsMapper">
 
-    <resultMap id="baseResultMap" type="com.zhengtong.fsp.manager.pojo.job.syqrs.SyqrsParamsEntity">
+    <resultMap id="baseResultMap" type="com.npsex.fsp.manager.pojo.job.syqrs.SyqrsParamsEntity">
         <id column="syqrs_id" property="syqrsId"/>
         <result column="syqrs_uuid" property="syqrsUuid"/>
         <result column="cust_id" property="custId"/>
@@ -82,7 +82,7 @@
        syqrs_id = #{syqrsId}
     </delete>
 
-    <insert id="insert" parameterType="com.zhengtong.fsp.manager.pojo.job.syqrs.SyqrsParamsEntity">
+    <insert id="insert" parameterType="com.npsex.fsp.manager.pojo.job.syqrs.SyqrsParamsEntity">
     INSERT INTO t_syqrs_params (
       syqrs_uuid,
       cust_id,
@@ -124,7 +124,7 @@
       )
   </insert>
 
-    <insert id="insertSelective" parameterType="com.zhengtong.fsp.manager.pojo.job.syqrs.SyqrsParamsEntity">
+    <insert id="insertSelective" parameterType="com.npsex.fsp.manager.pojo.job.syqrs.SyqrsParamsEntity">
         insert into t_syqrs_params
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="syqrsId != null">
@@ -246,7 +246,7 @@
         </trim>
     </insert>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.zhengtong.fsp.manager.pojo.job.syqrs.SyqrsParamsEntity">
+    <update id="updateByPrimaryKeySelective" parameterType="com.npsex.fsp.manager.pojo.job.syqrs.SyqrsParamsEntity">
         UPDATE t_syqrs_params
         <set>
             <if test="syqrsUuid != null">

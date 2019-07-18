@@ -49,7 +49,7 @@
 
 
 
-	 <bean id="dynamicDataSource" class="com.zhengtong.fsp.commons.core.datasource.DynamicDataSource">
+	 <bean id="dynamicDataSource" class="com.npsex.fsp.commons.core.datasource.DynamicDataSource">
 		<property name="targetDataSources">
 			<map key-type="java.lang.String">
 				<entry value-ref="dataSourceVOCS" key="dataSourceVOCS"></entry>
@@ -69,7 +69,7 @@
 	</bean>
 
 
-	<bean id="quartzDynamicDataSource" class="com.zhengtong.fsp.commons.core.datasource.DynamicDataSource">
+	<bean id="quartzDynamicDataSource" class="com.npsex.fsp.commons.core.datasource.DynamicDataSource">
 		<property name="targetDataSources">
 			<map key-type="java.lang.String">
 				<entry value-ref="dataSourceVOCS" key="dataSourceVOCS"></entry>
@@ -103,7 +103,7 @@
 		名 称来使用; 注意 bean 的名称是必须的,而不是 bean 的引用,因 此,value 属性在这里替代通常的 ref; 扫描目录在com.webside.*.mapper目录下，所有的mapper都继承SqlMapper接口， 
 		这样一个bean就可以了 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.zhengtong.fsp.manager.mapper" />
+		<property name="basePackage" value="com.npsex.fsp.manager.mapper" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 
@@ -140,24 +140,24 @@
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="insert*" propagation="REQUIRED" read-only="false"
-				rollback-for="com.zhengtong.fsp.commons.core.exception.ServiceException" />
+				rollback-for="com.npsex.fsp.commons.core.exception.ServiceException" />
 			<tx:method name="update*" propagation="REQUIRED" read-only="false"
-				rollback-for="com.zhengtong.fsp.commons.core.exception.ServiceException" />
+				rollback-for="com.npsex.fsp.commons.core.exception.ServiceException" />
 			<tx:method name="delete*" propagation="REQUIRED" read-only="false"
-				rollback-for="com.zhengtong.fsp.commons.core.exception.ServiceException" />
+				rollback-for="com.npsex.fsp.commons.core.exception.ServiceException" />
 			<tx:method name="add*" propagation="REQUIRED" read-only="false"
-				rollback-for="com.zhengtong.fsp.commons.core.exception.ServiceException" />
+				rollback-for="com.npsex.fsp.commons.core.exception.ServiceException" />
 			<tx:method name="log" propagation="REQUIRED" read-only="false"
-				rollback-for="com.zhengtong.fsp.commons.core.exception.ServiceException" />
+				rollback-for="com.npsex.fsp.commons.core.exception.ServiceException" />
 			<!-- quartz job 方法也需要在事物中执行 -->
 			<tx:method name="pause*" propagation="REQUIRED" read-only="false"
-				rollback-for="com.zhengtong.fsp.commons.core.exception.ServiceException" />
+				rollback-for="com.npsex.fsp.commons.core.exception.ServiceException" />
 			<tx:method name="resume*" propagation="REQUIRED" read-only="false"
-				rollback-for="com.zhengtong.fsp.commons.core.exception.ServiceException" />
+				rollback-for="com.npsex.fsp.commons.core.exception.ServiceException" />
 			<tx:method name="execute*" propagation="REQUIRED" read-only="false"
-				rollback-for="com.zhengtong.fsp.commons.core.exception.ServiceException" />
+				rollback-for="com.npsex.fsp.commons.core.exception.ServiceException" />
 			<tx:method name="interrupt*" propagation="REQUIRED" read-only="false"
-				rollback-for="com.zhengtong.fsp.commons.core.exception.ServiceException" />
+				rollback-for="com.npsex.fsp.commons.core.exception.ServiceException" />
 			<!-- <tx:method name="*" read-only="true"/> -->
 		</tx:attributes>
 	</tx:advice>
@@ -166,7 +166,7 @@
 	<aop:config expose-proxy="true" proxy-target-class="true">
 		<!-- 配置哪些类的方法进行事务管理:定义在service包或者子包里的任意方法的执行 -->
 		<aop:pointcut id="transactionPointcut"
-			expression="execution(* com.zhengtong.fsp.manager.service..*.*(..))" />
+			expression="execution(* com.npsex.fsp.manager.service..*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="transactionPointcut" order="0"/>
 	</aop:config>
 
@@ -186,8 +186,8 @@
 		<property name="patterns">
 			<list>
 				<!--切入druid监控包位置-->
-				<value>com.zhengtong.fsp.manager.service.*.*</value>
-				<value>com.zhengtong.fsp.manager.mapper.*.*</value>
+				<value>com.npsex.fsp.manager.service.*.*</value>
+				<value>com.npsex.fsp.manager.mapper.*.*</value>
 			</list>
 		</property>
 	</bean>
@@ -200,12 +200,12 @@
 	<import resource="spring-datasource.xml" />
 
 	<!--数据源AOP标签有问题 请勿动-->
-	<!--<bean id="dataSourceInterceptor" class="com.zhengtong.fsp.manager.web.interceptor.DataSourceInterceptor" />-->
+	<!--<bean id="dataSourceInterceptor" class="com.npsex.manager.web.interceptor.DataSourceInterceptor" />-->
 
 	<!--<aop:config>-->
 	<!--<aop:aspect id="dataSourceAspect" ref="dataSourceInterceptor">-->
-	<!--<aop:pointcut id="dsFSP" expression="execution(* com.zhengtong.fsp.manager.controller.fsp.*.*(..))" />-->
-	<!--<aop:pointcut id="dsGoboo" expression="execution(* com.zhengtong.fsp.manager.controller.goboo.*.*(..))" />-->
+	<!--<aop:pointcut id="dsFSP" expression="execution(* com.npsex.manager.controller.fsp.*.*(..))" />-->
+	<!--<aop:pointcut id="dsGoboo" expression="execution(* com.npsex.manager.controller.goboo.*.*(..))" />-->
 	<!--<aop:before method="setdataSourceFSP" pointcut-ref="dsFSP"/>-->
 	<!--<aop:before method="setdataSourceGoboo" pointcut-ref="dsGoboo"/>-->
 	<!--</aop:aspect>-->

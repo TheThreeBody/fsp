@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhengtong.fsp.manager.mapper.baidu_credit.IssueDataMapper">
+<mapper namespace="com.npsex.fsp.manager.mapper.baidu_credit.IssueDataMapper">
 	<select id="queryIssue" resultType="java.util.Map">
 		select t.issue_id as id,t.loan_id,t.cur_date, t.issue_type as exception_type,t.issue_time as issue_time, t.handle_status as handle_status,tos.vbs_bid as vbs_id ,t.handle_person,t.handle_time,t.handle_msg,t.issue_msg as exception_msg 
 		from (select * from t_account_issue where (handle_status = 0 or handle_status = 1) and cur_date &gt;= #{beginDate,jdbcType=VARCHAR} and cur_date &lt;= #{endDate,jdbcType=VARCHAR} ) t

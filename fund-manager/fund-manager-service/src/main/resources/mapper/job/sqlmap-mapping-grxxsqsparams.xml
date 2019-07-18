@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zhengtong.fsp.manager.mapper.job.grxxsqs.GrxxsqsParamsMapper">
+<mapper namespace="com.npsex.fsp.manager.mapper.job.grxxsqs.GrxxsqsParamsMapper">
 
-    <resultMap id="BaseResultMap" type="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
+    <resultMap id="BaseResultMap" type="com.npsex.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
         <id column="grxxsqs_id" property="grxxsqsId"/>
         <result column="grxxsqs_uuid" property="grxxsqsUuid"/>
         <result column="product_type" property="productType"/>
@@ -35,7 +35,7 @@
         where grxxsqs_id = #{grxxsqsId}
     </delete>
 
-    <insert id="insert" parameterType="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
+    <insert id="insert" parameterType="com.npsex.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
         insert into t_grxxsqs_params (grxxsqs_id, grxxsqs_uuid, product_type,
         cust_id, contact_type, credit_time,
         cust_id_no, cust_name, create_time,
@@ -47,7 +47,7 @@
         #{custMobile}, #{paramsBk1}, #{paramsBk2},
         #{updateTime})
     </insert>
-    <insert id="insertSelective" parameterType="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
+    <insert id="insertSelective" parameterType="com.npsex.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
         insert into t_grxxsqs_params
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="grxxsqsId != null">
@@ -132,7 +132,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
+    <update id="updateByPrimaryKeySelective" parameterType="com.npsex.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
         update t_grxxsqs_params
         <set>
             <if test="grxxsqsUuid != null">
@@ -174,7 +174,7 @@
         </set>
         where grxxsqs_id = #{grxxsqsId}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
+    <update id="updateByPrimaryKey" parameterType="com.npsex.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
         update t_grxxsqs_params
         set grxxsqs_uuid = #{grxxsqsUuid},
         product_type = #{productType},

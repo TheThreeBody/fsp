@@ -5,8 +5,8 @@ package com.webside.ip2region;
 
 import java.io.IOException;
 
-import com.zhengtong.fsp.manager.pojo.ip2region.DataBlock;
-import com.zhengtong.fsp.manager.pojo.ip2region.DbSearcher;
+import com.npsex.fsp.manager.pojo.ip2region.DataBlock;
+import com.npsex.fsp.manager.pojo.ip2region.DbSearcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

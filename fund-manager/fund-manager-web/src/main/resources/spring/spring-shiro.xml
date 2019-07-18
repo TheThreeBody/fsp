@@ -10,7 +10,7 @@
 
 
 	<!--自定义Realm -->
-	<bean id="myDBRealm" class="com.zhengtong.fsp.manager.support.shiro.MyDBRealm">
+	<bean id="myDBRealm" class="com.npsex.fsp.manager.support.shiro.MyDBRealm">
 		<property name="credentialsMatcher" ref="credentialsMatcher" />
 		<!-- 开启缓存 -->
 		<property name="cachingEnabled" value="true" />
@@ -25,7 +25,7 @@
 	</bean>
 
 	<!-- 凭证匹配器credentials -->
-	<bean id="credentialsMatcher" class="com.zhengtong.fsp.manager.support.shiro.LimitRetryCredentialsMatcher">
+	<bean id="credentialsMatcher" class="com.npsex.fsp.manager.support.shiro.LimitRetryCredentialsMatcher">
 		<!-- hashAlgorithmName必须的，没有默认值。可以有MD5或者SHA-1，如果对密码安全有更高要求可以用SHA-256或者更高。
 			这里使用MD5 storedCredentialsHexEncoded默认是true，此时用的是密码加密用的是Hex编码；false时用Base64编码
 			hashIterations迭代次数，默认值是1。 -->
@@ -85,7 +85,7 @@
 	</bean>
 
 	<!-- 用户会话session控制 -->
-	<bean id="kickoutFilter" class="com.zhengtong.fsp.manager.support.shiro.filter.KickoutSessionFilter">
+	<bean id="kickoutFilter" class="com.npsex.fsp.manager.support.shiro.filter.KickoutSessionFilter">
 		<property name="cacheManager" ref = "cacheManager"/>
 		<property name="sessionManager" ref="sessionManager"/>
 		<!-- 是否踢出后来登录的，默认是false；即后者登录的用户踢出前者登录的用户 -->
@@ -96,16 +96,16 @@
 	</bean>
 
 	<!-- kickout Filter -->
-	<bean id="kickoutAuthFilter" class="com.zhengtong.fsp.manager.support.shiro.filter.KickoutAuthFilter"/>
+	<bean id="kickoutAuthFilter" class="com.npsex.fsp.manager.support.shiro.filter.KickoutAuthFilter"/>
 	<!-- user Filter -->
-	<bean id="loginFilter" class="com.zhengtong.fsp.manager.support.shiro.filter.LoginFilter"/>
-	<bean id="rememberMeFilter" class="com.zhengtong.fsp.manager.support.shiro.filter.RememberMeFilter"/>
-	<bean id="permissionFilter" class="com.zhengtong.fsp.manager.support.shiro.filter.PermissionFilter"/>
-	<bean id="roleFilter" class="com.zhengtong.fsp.manager.support.shiro.filter.RoleFilter"/>
-	<bean id="baseUrl" class="com.zhengtong.fsp.manager.support.shiro.filter.URLFilter"/>
+	<bean id="loginFilter" class="com.npsex.fsp.manager.support.shiro.filter.LoginFilter"/>
+	<bean id="rememberMeFilter" class="com.npsex.fsp.manager.support.shiro.filter.RememberMeFilter"/>
+	<bean id="permissionFilter" class="com.npsex.fsp.manager.support.shiro.filter.PermissionFilter"/>
+	<bean id="roleFilter" class="com.npsex.fsp.manager.support.shiro.filter.RoleFilter"/>
+	<bean id="baseUrl" class="com.npsex.fsp.manager.support.shiro.filter.URLFilter"/>
 
 
-	<bean id="chainDefinitionService" class="com.zhengtong.fsp.manager.service.impl.ChainDefinitionServiceImpl" />
+	<bean id="chainDefinitionService" class="com.npsex.fsp.manager.service.impl.ChainDefinitionServiceImpl" />
 
 	<!-- 配置shiro的过滤器工厂类，这里bean的id shiroFilter要和我们在web.xml中配置的shior过滤器名称一致<filter-name>shiroFilter</filter-name> -->
 	<!-- Shiro主过滤器本身功能十分强大,其强大之处就在于它支持任何基于URL路径表达式的、自定义的过滤器的执行 -->
@@ -154,7 +154,7 @@
 		1、自己重新实现SessionValidationScheduler类，QuartzSessionValidationScheduler implements SessionValidationScheduler
 
 		2、使用ExecutorServiceSessionValidationScheduler代替QuartzSessionValidationScheduler -->
-	<bean id="sessionValidationScheduler" class="com.zhengtong.fsp.manager.support.shiro.session.validation.QuartzSessionValidationScheduler">
+	<bean id="sessionValidationScheduler" class="com.npsex.fsp.manager.support.shiro.session.validation.QuartzSessionValidationScheduler">
 		<property name="sessionValidationInterval" value="${shiro.session.validate.interval}" />
 		<property name="sessionManager" ref="sessionManager" />
 	</bean>
@@ -215,12 +215,12 @@
 	<!--</bean>-->
 
 	<!-- redis shiro session dao -->
-	<bean id="redisShiroSessionDAO" class="com.zhengtong.fsp.manager.support.shiro.session.ShiroSessionDAO">
+	<bean id="redisShiroSessionDAO" class="com.npsex.fsp.manager.support.shiro.session.ShiroSessionDAO">
 		<property name="shiroSessionRepository" ref="redisShiroSessionRepository"/>
 		<property name="sessionIdGenerator" ref="sessionIdGenerator"/>
 	</bean>
 
-	<bean id="redisShiroSessionRepository" class="com.zhengtong.fsp.manager.support.shiro.session.redis.RedisShiroSessionRepository">
+	<bean id="redisShiroSessionRepository" class="com.npsex.fsp.manager.support.shiro.session.redis.RedisShiroSessionRepository">
 		<property name="redisManager" ref="redisManager"/>
 	</bean>
 
@@ -234,7 +234,7 @@
 		2、redis实现	 ：redisShiroCacheManager
 
 	-->
-	<bean id="cacheManager" class="com.zhengtong.fsp.manager.support.shiro.cache.CustomShiroCacheManager">
+	<bean id="cacheManager" class="com.npsex.fsp.manager.support.shiro.cache.CustomShiroCacheManager">
 		<property name="shiroCacheManager" ref="redisShiroCacheManager" />
 		<!--(改用redis做shiro缓存)-->
 		<!--<property name="shiroCacheManager" ref="ehcacheShiroCacheManager" />-->
@@ -244,15 +244,15 @@
 
 
 	<!--redis cache管理器 -->
-	<bean id="redisShiroCacheManager" class="com.zhengtong.fsp.manager.support.shiro.cache.redis.RedisShiroCacheManager">
+	<bean id="redisShiroCacheManager" class="com.npsex.fsp.manager.support.shiro.cache.redis.RedisShiroCacheManager">
 		<property name="cacheManager" ref="redisManager" />
 	</bean>
 
-	<bean id="redisManager" class="com.zhengtong.fsp.manager.support.redis.RedisManager">
+	<bean id="redisManager" class="com.npsex.fsp.manager.support.redis.RedisManager">
 		<property name="jedisPool" ref="jedisPool"/>
 	</bean>
 	<!--ehcache cache管理器(改用redis) -->
-	<!--<bean id="ehcacheShiroCacheManager" class="com.zhengtong.fsp.manager.support.shiro.cache.ehcache.EhCacheShiroCacheManager">-->
+	<!--<bean id="ehcacheShiroCacheManager" class="com.npsex.manager.support.shiro.cache.ehcache.EhCacheShiroCacheManager">-->
 		<!--<property name="cacheManager" ref="ehCacheManager" />-->
 	<!--</bean>-->
 

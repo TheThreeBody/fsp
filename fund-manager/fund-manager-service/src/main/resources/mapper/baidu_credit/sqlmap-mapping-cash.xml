@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zhengtong.fsp.manager.mapper.baidu_credit.CashMapper" >
+<mapper namespace="com.npsex.fsp.manager.mapper.baidu_credit.CashMapper" >
   <!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
   <!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
 
 
-  <resultMap id="CashMap" type="com.zhengtong.fsp.manager.pojo.CashEntity" >
+  <resultMap id="CashMap" type="com.npsex.fsp.manager.pojo.CashEntity" >
     <id property="id" column="id" jdbcType="BIGINT" />
     <id property="transactionApplyId" column="transaction_apply_id" jdbcType="VARCHAR" />
     <id property="custId" column="cust_id" jdbcType="VARCHAR" />

@@ -1,10 +1,10 @@
 package com.webside.ip2region;
 
-import com.zhengtong.fsp.commons.utils.iP2RegionUtil;
-import com.zhengtong.fsp.manager.pojo.ip2region.DataBlock;
-import com.zhengtong.fsp.manager.pojo.ip2region.DbConfig;
-import com.zhengtong.fsp.manager.pojo.ip2region.DbMakerConfigException;
-import com.zhengtong.fsp.manager.pojo.ip2region.DbSearcher;
+import com.npsex.fsp.commons.utils.iP2RegionUtil;
+import com.npsex.fsp.manager.pojo.ip2region.DataBlock;
+import com.npsex.fsp.manager.pojo.ip2region.DbConfig;
+import com.npsex.fsp.manager.pojo.ip2region.DbMakerConfigException;
+import com.npsex.fsp.manager.pojo.ip2region.DbSearcher;
 
 import java.io.BufferedReader;
 import java.io.File;

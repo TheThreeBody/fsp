@@ -1,10 +1,5 @@
-import com.zhengtong.fsp.commons.core.exception.AjaxException;
-import com.zhengtong.fsp.commons.utils.HttpClientUtil;
-import com.zhengtong.fsp.commons.utils.JsonUtils;
+import com.npsex.fsp.commons.utils.HttpClientUtil;
 import org.junit.Test;
-
-import java.io.IOException;
-import java.util.Map;
 
 /**
  * Created by dongwen on 2017/8/10.

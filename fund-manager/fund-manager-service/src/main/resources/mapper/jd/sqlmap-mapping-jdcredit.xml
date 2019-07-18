@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zhengtong.fsp.manager.mapper.jd.LoanStatusInfoMapper">
+<mapper namespace="com.npsex.fsp.manager.mapper.jd.LoanStatusInfoMapper">
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 
-	<resultMap id="CreditQuotaMap" type="com.zhengtong.fsp.manager.pojo.jd.CreditQuota">
+	<resultMap id="CreditQuotaMap" type="com.npsex.fsp.manager.pojo.jd.CreditQuota">
 		<id column="quota_id" jdbcType="INTEGER" property="quotaId" />
 		<result column="cust_id" jdbcType="INTEGER" property="custId" />
 		<result column="process_id" jdbcType="INTEGER" property="processId" />
@@ -35,7 +35,7 @@
 	</sql>
 
 
-	<select id="queryLoanStatusList" resultType="com.zhengtong.fsp.manager.pojo.jd.LoanStatusInfo"
+	<select id="queryLoanStatusList" resultType="com.npsex.fsp.manager.pojo.jd.LoanStatusInfo"
 		parameterType="map" flushCache="true" useCache="true">
 				SELECT
 		o.order_id AS orderId,
@@ -111,8 +111,8 @@
 
 	</select>
 
-	<select id="queryLoanOperateRecord" resultType="com.zhengtong.fsp.manager.pojo.jd.LoanOperateRecord"
-		parameterType="com.zhengtong.fsp.manager.pojo.jd.LoanOperateRecord"
+	<select id="queryLoanOperateRecord" resultType="com.npsex.fsp.manager.pojo.jd.LoanOperateRecord"
+		parameterType="com.npsex.fsp.manager.pojo.jd.LoanOperateRecord"
 		flushCache="true" useCache="true">
 		SELECT
 		id as id,
@@ -142,7 +142,7 @@
 		</if>
 	</select>
 
-	<insert id="saveLoanOperateRecord" parameterType="com.zhengtong.fsp.manager.pojo.jd.LoanOperateRecord">
+	<insert id="saveLoanOperateRecord" parameterType="com.npsex.fsp.manager.pojo.jd.LoanOperateRecord">
 		insert into
 		t_loan_operate_record(order_id,vbs_id,type,operater,operate_desc,status,status_desc)
 		values(#{orderId},#{vbsId},#{type},#{operater},#{operateDesc},#{status},#{statusDesc})

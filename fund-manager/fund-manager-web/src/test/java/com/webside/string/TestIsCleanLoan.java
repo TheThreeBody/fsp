@@ -1,10 +1,7 @@
 package com.webside.string;
 
-import com.zhengtong.fsp.commons.utils.HttpClientUtil;
+import com.npsex.fsp.commons.utils.HttpClientUtil;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Created by dongwen on 2017/7/27.

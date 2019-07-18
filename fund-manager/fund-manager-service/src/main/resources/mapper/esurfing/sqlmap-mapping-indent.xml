@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhengtong.fsp.manager.mapper.esurfing.IndentMapper">
+<mapper namespace="com.npsex.fsp.manager.mapper.esurfing.IndentMapper">
   <!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
   <!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
 
-    <resultMap id="indentMap" type="com.zhengtong.fsp.manager.pojo.IndentEntity" >
+    <resultMap id="indentMap" type="com.npsex.fsp.manager.pojo.IndentEntity" >
     <id property="id" column="id"/>
     <result property="vbsId" column="vbsId"/>
     <result property="orderStatus" column="orderStatus"/>
@@ -15,7 +15,7 @@
     <result property="name" column="name"/>
     </resultMap>
 
-    <resultMap id="frozenMap" type="com.zhengtong.fsp.manager.pojo.FrozenEntity" >
+    <resultMap id="frozenMap" type="com.npsex.fsp.manager.pojo.FrozenEntity" >
         <id property="credit_id" column="creditId"/>
         <result property="credit_amount" column="creditAmount"/>
         <result property="credit_amount_frozen" column="creditAmountFrozen"/>

@@ -2,8 +2,8 @@ package com.webside.enums;
 
 import static org.junit.Assert.assertTrue;
 
-import com.zhengtong.fsp.commons.core.enums.EmailDescription;
-import com.zhengtong.fsp.commons.core.enums.ExportType;
+import com.npsex.fsp.commons.core.enums.EmailDescription;
+import com.npsex.fsp.commons.core.enums.ExportType;
 import org.junit.Test;
 
 public class TestEnum {

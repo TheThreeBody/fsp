@@ -12,7 +12,7 @@
            http://www.springframework.org/schema/context/spring-context-4.1.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<!-- 配置要扫描的包 ,有多个可以用';'号隔开,也可写多个context:component-scan -->
-	<context:component-scan base-package="com.zhengtong.fsp">
+	<context:component-scan base-package="com.npsex.fsp">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 
@@ -29,7 +29,7 @@
 		<property name="customEditors">
 			<map>
 				<!-- Date类型编辑器 -->
-				<entry key="java.util.Date" value="com.zhengtong.fsp.manager.web.convert.SysDatePropertyEditor"/>
+				<entry key="java.util.Date" value="com.npsex.fsp.manager.web.convert.SysDatePropertyEditor"/>
 			</map>
 		</property>
 	</bean>

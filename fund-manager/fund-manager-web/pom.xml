@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <artifactId>fund-manager</artifactId>
-        <groupId>com.zhengtong</groupId>
+        <groupId>com.npsex</groupId>
         <version>1.0.0</version>
     </parent>
 
@@ -15,17 +15,17 @@
     <dependencies>
         <!-- 对其它模块的依赖 -->
         <dependency>
-            <groupId>com.zhengtong</groupId>
+            <groupId>com.npsex</groupId>
             <artifactId>fsp-commons</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.zhengtong</groupId>
+            <groupId>com.npsex</groupId>
             <artifactId>fund-manager-pojo</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.zhengtong</groupId>
+            <groupId>com.npsex</groupId>
             <artifactId>fund-manager-service</artifactId>
             <version>${project.version}</version>
         </dependency>

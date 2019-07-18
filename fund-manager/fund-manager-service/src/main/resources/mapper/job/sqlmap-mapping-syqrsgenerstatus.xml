@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zhengtong.fsp.manager.mapper.job.syqrs.SyqrsGenerStatusMapper">
+<mapper namespace="com.npsex.fsp.manager.mapper.job.syqrs.SyqrsGenerStatusMapper">
 
-    <resultMap id="baseResultMap" type="com.zhengtong.fsp.manager.pojo.job.syqrs.SyqrsGenerStatusEntity">
+    <resultMap id="baseResultMap" type="com.npsex.fsp.manager.pojo.job.syqrs.SyqrsGenerStatusEntity">
         <id column="gener_status_id" property="generStatusId"/>
         <result column="syqrs_uuid" property="syqrsUuid"/>
         <result column="generate_status" property="generateStatus"/>
@@ -32,7 +32,7 @@
         gener_status_id = #{generStatusId}
     </delete>
 
-    <insert id="insert" parameterType="com.zhengtong.fsp.manager.pojo.job.syqrs.SyqrsGenerStatusEntity">
+    <insert id="insert" parameterType="com.npsex.fsp.manager.pojo.job.syqrs.SyqrsGenerStatusEntity">
         INSERT INTO t_syqrs_gener_status (
         syqrs_uuid,
         generate_status,
@@ -45,7 +45,7 @@
         #{updateTime})
     </insert>
 
-    <insert id="insertSelective" parameterType="com.zhengtong.fsp.manager.pojo.job.syqrs.SyqrsGenerStatusEntity" >
+    <insert id="insertSelective" parameterType="com.npsex.fsp.manager.pojo.job.syqrs.SyqrsGenerStatusEntity" >
         insert into t_syqrs_gener_status
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="generStatusId != null" >
@@ -83,7 +83,7 @@
         </trim>
     </insert>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.zhengtong.fsp.manager.pojo.job.syqrs.SyqrsGenerStatusEntity">
+    <update id="updateByPrimaryKeySelective" parameterType="com.npsex.fsp.manager.pojo.job.syqrs.SyqrsGenerStatusEntity">
         UPDATE t_syqrs_gener_status
         <set>
             <if test="syqrsUuid != null">
@@ -103,7 +103,7 @@
         gener_status_id = #{generStatusId}
     </update>
 
-    <update id="updateStatus" parameterType="com.zhengtong.fsp.manager.pojo.job.syqrs.SyqrsGenerStatusEntity">
+    <update id="updateStatus" parameterType="com.npsex.fsp.manager.pojo.job.syqrs.SyqrsGenerStatusEntity">
         UPDATE t_syqrs_gener_status
         <set>
             <if test="generateStatus != null">

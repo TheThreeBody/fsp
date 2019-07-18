@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhengtong.fsp.manager.mapper.vocs.ScheduleJobMapper">
+<mapper namespace="com.npsex.fsp.manager.mapper.vocs.ScheduleJobMapper">
 	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
 	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
@@ -20,7 +20,7 @@
 		j_job_update_time updateTime
 	</sql>
 	
-	<select id="queryListByPage" parameterType="map" resultType="com.zhengtong.fsp.manager.pojo.ScheduleJob" flushCache="true" useCache="true">
+	<select id="queryListByPage" parameterType="map" resultType="com.npsex.fsp.manager.pojo.ScheduleJob" flushCache="true" useCache="true">
 		SELECT 
 		<include refid="scheduleJobAttributes"/>
 		FROM tb_schedule_job where <![CDATA[j_job_status <> 'DELETE']]>
@@ -29,14 +29,14 @@
 			</if>
 	</select>
 	
-	<select id="findById" parameterType="long" resultType="com.zhengtong.fsp.manager.pojo.ScheduleJob" flushCache="true" useCache="true">
+	<select id="findById" parameterType="long" resultType="com.npsex.fsp.manager.pojo.ScheduleJob" flushCache="true" useCache="true">
 		SELECT 
 		<include refid="scheduleJobAttributes"/>
 		FROM tb_schedule_job 
 		where j_id = ${id}
 	</select>
 	
-	<insert id="insert" parameterType="com.zhengtong.fsp.manager.pojo.ScheduleJob" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insert" parameterType="com.npsex.fsp.manager.pojo.ScheduleJob" useGeneratedKeys="true" keyProperty="id">
 		insert ignore into tb_schedule_job (
 			j_job_name,
 			j_job_group,
@@ -61,7 +61,7 @@
 			)  
 	</insert>
 	
-	<update id="update" parameterType="com.zhengtong.fsp.manager.pojo.ScheduleJob" flushCache="true">
+	<update id="update" parameterType="com.npsex.fsp.manager.pojo.ScheduleJob" flushCache="true">
 		update tb_schedule_job
 		<set>
 			<if test="jobStatus != null and jobStatus != ''">

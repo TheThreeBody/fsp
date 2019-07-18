@@ -15,7 +15,7 @@
 			<ref bean="quartzDynamicDataSource" />
 		</property>
 		<property name="jobFactory">
-			<bean class="com.zhengtong.fsp.manager.support.quartz.AutowiringSpringBeanJobFactory" />
+			<bean class="com.npsex.fsp.manager.support.quartz.AutowiringSpringBeanJobFactory" />
 		</property>
 		<property name="autoStartup" value="true" />
 		<property name="startupDelay" value="10" />
@@ -41,7 +41,7 @@
 	</bean>
 
 	<bean id="syqrsJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
-		<property name="jobClass" value="com.zhengtong.fsp.manager.quartzJob.SyqrsJob"/>
+		<property name="jobClass" value="com.npsex.fsp.manager.quartzJob.SyqrsJob"/>
 		<property name="name" value="syqrsJob"/>
 		<property name="group" value="syqrsJobGroup"/>
 		<property name="description" value="每天查询前一天的数据生成合同"/>
@@ -57,7 +57,7 @@
 	</bean>
 
 	<bean id="grxxsqsJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
-		<property name="jobClass" value="com.zhengtong.fsp.manager.quartzJob.GrxxsqsJob"/>
+		<property name="jobClass" value="com.npsex.fsp.manager.quartzJob.GrxxsqsJob"/>
 		<property name="name" value="grxxsqsJob"/>
 		<property name="group" value="grxxsqsJobGroup"/>
 		<property name="description" value="每天查询前一天的数据生成授权书"/>
@@ -73,7 +73,7 @@
 	</bean>
 
 	<bean id="EsrufingSysqsJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
-		<property name="jobClass" value="com.zhengtong.fsp.manager.quartzJob.esurfing_credit.EsurfingSyqrsJob"/>
+		<property name="jobClass" value="com.npsex.fsp.manager.quartzJob.esurfing_credit.EsurfingSyqrsJob"/>
 		<property name="name" value="EsrufingJob"/>
 		<property name="group" value="EsrufingJobGroup"/>
 		<property name="description" value="每天查询前一天的数据生成合同"/>
@@ -90,7 +90,7 @@
     </bean>
 
 	<bean id="personalInformationJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
-	    <property name="jobClass" value="com.zhengtong.fsp.manager.quartzJob.PersonalInformationJob"/>
+	    <property name="jobClass" value="com.npsex.fsp.manager.quartzJob.PersonalInformationJob"/>
 	    <property name="name" value="personalInfo"/>
 	    <property name="group" value="personalInfo"/>
 	    <property name="description" value="读取前一天授信数据"/>

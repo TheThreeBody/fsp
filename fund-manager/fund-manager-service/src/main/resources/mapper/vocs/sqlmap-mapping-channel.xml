@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zhengtong.fsp.manager.mapper.vocs.ChannelMapper" >
+<mapper namespace="com.npsex.fsp.manager.mapper.vocs.ChannelMapper" >
   <!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
   <!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
@@ -17,7 +17,7 @@
     c_update_by
   </sql>
 
-  <resultMap id="channelMap" type="com.zhengtong.fsp.manager.pojo.ChannelEntity" >
+  <resultMap id="channelMap" type="com.npsex.fsp.manager.pojo.ChannelEntity" >
     <id property="id" column="id"/>
     <result property="channelName" column="c_name"/>
     <result property="deleteStatus" column="c_delete_status"/>
@@ -27,7 +27,7 @@
     <result property="createTime" column="c_create_time"/>
     <result property="updateTime" column="c_update_time"/>
     <result property="updateBy" column="c_update_by"/>
-    <collection property="userList" column="id" ofType="com.zhengtong.fsp.manager.pojo.UserEntity">
+    <collection property="userList" column="id" ofType="com.npsex.fsp.manager.pojo.UserEntity">
       <id property="id" column="id"/>
       <result property="channelId" column="u_channel_id"/>
       <result property="userName" column="u_name" />
@@ -41,7 +41,7 @@
       <result property="createTime" column="u_create_time"/>
       <result property="updateTime" column="u_update_time"/>
     </collection>
-    <collection property="roleList" column="id" ofType="com.zhengtong.fsp.manager.pojo.RoleEntity">
+    <collection property="roleList" column="id" ofType="com.npsex.fsp.manager.pojo.RoleEntity">
       <id property="id" column="id"/>
       <result property="name" column="r_name"/>
       <result property="key" column="r_key"/>
@@ -74,7 +74,7 @@
     delete from tb_channel
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zhengtong.fsp.manager.pojo.ChannelEntity" >
+  <insert id="insert" parameterType="com.npsex.fsp.manager.pojo.ChannelEntity" >
     insert into tb_channel (id, c_name, c_delete_status, 
       c_locked, c_description, c_creator_name,
       c_create_time, c_update_time, c_update_by
@@ -84,7 +84,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.zhengtong.fsp.manager.pojo.ChannelEntity" >
+  <insert id="insertSelective" parameterType="com.npsex.fsp.manager.pojo.ChannelEntity" >
     insert into tb_channel
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -145,7 +145,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zhengtong.fsp.manager.pojo.ChannelEntity" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.npsex.fsp.manager.pojo.ChannelEntity" >
     update tb_channel
     <set >
       <if test="channelName != null" >
@@ -175,7 +175,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zhengtong.fsp.manager.pojo.ChannelEntity" >
+  <update id="updateByPrimaryKey" parameterType="com.npsex.fsp.manager.pojo.ChannelEntity" >
     update tb_channel
     set c_name = #{channelName,jdbcType=VARCHAR},
       c_delete_status = #{deleteStatus,jdbcType=INTEGER},

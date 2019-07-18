@@ -1,6 +1,6 @@
 package com.webside.ip2region;
 
-import com.zhengtong.fsp.commons.utils.iP2RegionUtil;
+import com.npsex.fsp.commons.utils.iP2RegionUtil;
 import org.junit.Test;
 
 

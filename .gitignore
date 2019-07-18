@@ -26,6 +26,9 @@
 fsp-commons/fsp-commons.iml
 fsp-manager.iml
 fsp.iml
+V1_0_1__quartz_mysql_innodb.sql
+V1_0_0__fspmanager_init.sql
+V1_0_0_fsp_business_base.sql
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*

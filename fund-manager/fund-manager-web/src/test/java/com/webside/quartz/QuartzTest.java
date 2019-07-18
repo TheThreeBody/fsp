@@ -1,8 +1,8 @@
 package com.webside.quartz;
 
 
-import com.zhengtong.fsp.manager.pojo.ScheduleJob;
-import com.zhengtong.fsp.manager.service.ScheduleJobService;
+import com.npsex.fsp.manager.pojo.ScheduleJob;
+import com.npsex.fsp.manager.service.ScheduleJobService;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class QuartzTest {
 		job.setJobName("test");
 		job.setJobGroup("test");
 		job.setCronExpression("*/5 * * * * ?");
-		job.setJobClassName("com.zhengtong.fsp.manager.pojo.quartz.EmailJob");
+		job.setJobClassName("com.npsex.fsp.manager.pojo.quartz.EmailJob");
 		//java 8 实现方式
 		//LocalDate localDate = LocalDate.parse("2016-07-16 15:23:43",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		//Date date = Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());

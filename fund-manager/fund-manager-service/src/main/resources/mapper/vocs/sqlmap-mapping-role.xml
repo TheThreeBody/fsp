@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhengtong.fsp.manager.mapper.vocs.RoleMapper">
+<mapper namespace="com.npsex.fsp.manager.mapper.vocs.RoleMapper">
 	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
 	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
@@ -16,7 +16,7 @@
 		r_update_time
 	</sql>
 
-	<resultMap id="roleMap" type="com.zhengtong.fsp.manager.pojo.RoleEntity">
+	<resultMap id="roleMap" type="com.npsex.fsp.manager.pojo.RoleEntity">
 		<id property="id" column="r_id"/>
 		<result property="name" column="r_name"/>
 		<result property="key" column="r_key"/>
@@ -24,7 +24,7 @@
 		<result property="description" column="r_description"/>
 		<result property="createTime" column="r_create_time"/>
 		<result property="updateTime" column="r_update_time"/>
-		<collection property="userList" column="id" ofType="com.zhengtong.fsp.manager.pojo.UserEntity">
+		<collection property="userList" column="id" ofType="com.npsex.fsp.manager.pojo.UserEntity">
 			<id property="id" column="id"/>
 			<result property="channelId" column="u_channel_id"/>
 			<result property="userName" column="u_name" />
@@ -102,7 +102,7 @@
 		where r.r_name = #{name}
 	</select>
 	
-	<insert id="insert" parameterType="com.zhengtong.fsp.manager.pojo.RoleEntity" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insert" parameterType="com.npsex.fsp.manager.pojo.RoleEntity" useGeneratedKeys="true" keyProperty="id">
 		insert ignore into tb_role (
 			r_name,
 			r_key,
@@ -144,7 +144,7 @@
 		where r.r_id = #{id}
 	</select>
 	
-	<update id="update" parameterType="com.zhengtong.fsp.manager.pojo.RoleEntity" flushCache="true">
+	<update id="update" parameterType="com.npsex.fsp.manager.pojo.RoleEntity" flushCache="true">
 		update tb_role
 		<set>
 			<if test="name != null and name != ''">

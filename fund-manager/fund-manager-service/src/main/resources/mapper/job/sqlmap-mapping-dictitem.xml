@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zhengtong.fsp.manager.mapper.job.dict.DictItemMapper">
+<mapper namespace="com.npsex.fsp.manager.mapper.job.dict.DictItemMapper">
 
     <sql id="dictAttributes">
          dict_item_id,
@@ -11,7 +11,7 @@
          update_time
     </sql>
 
-    <resultMap id="baseResultMap" type="com.zhengtong.fsp.manager.pojo.job.dict.DictItemEntity">
+    <resultMap id="baseResultMap" type="com.npsex.fsp.manager.pojo.job.dict.DictItemEntity">
         <id column="dict_item_id" property="dictItemId"/>
         <result column="dict_item_code" property="dictItemCode"/>
         <result column="dict_item_name" property="dictItemName"/>
@@ -34,7 +34,7 @@
         WHERE
         dict_item_id = #{dictItemId}
     </delete>
-    <insert id="insert" parameterType="com.zhengtong.fsp.manager.pojo.job.dict.DictItemEntity">
+    <insert id="insert" parameterType="com.npsex.fsp.manager.pojo.job.dict.DictItemEntity">
         INSERT INTO t_dict_item (
         dict_item_id,
         dict_item_code,
@@ -52,7 +52,7 @@
         #{updateTime}
         )
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.zhengtong.fsp.manager.pojo.job.dict.DictItemEntity">
+    <update id="updateByPrimaryKeySelective" parameterType="com.npsex.fsp.manager.pojo.job.dict.DictItemEntity">
         UPDATE t_dict_item
         <set>
             <if test="dictItemCode != null">

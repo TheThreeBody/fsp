@@ -5,9 +5,9 @@
            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
 	<!-- db配置 -->
-	<bean id="dbConfig" class="com.zhengtong.fsp.manager.pojo.ip2region.DbConfig" />
+	<bean id="dbConfig" class="com.npsex.fsp.manager.pojo.ip2region.DbConfig" />
 	<!-- ip搜索模块配置 -->
-	<bean id="ipSearcher" class="com.zhengtong.fsp.manager.pojo.ip2region.DbSearcher">
+	<bean id="ipSearcher" class="com.npsex.fsp.manager.pojo.ip2region.DbSearcher">
 		<constructor-arg name="dbConfig" ref="dbConfig" />
 		<constructor-arg name="dbFile" value="${dbFile}" />
 	</bean>

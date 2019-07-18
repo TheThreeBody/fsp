@@ -6,10 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 
-import com.zhengtong.fsp.manager.pojo.ip2region.DataBlock;
-import com.zhengtong.fsp.manager.pojo.ip2region.DbConfig;
-import com.zhengtong.fsp.manager.pojo.ip2region.DbMakerConfigException;
-import com.zhengtong.fsp.manager.pojo.ip2region.DbSearcher;
+import com.npsex.fsp.manager.pojo.ip2region.DataBlock;
+import com.npsex.fsp.manager.pojo.ip2region.DbConfig;
+import com.npsex.fsp.manager.pojo.ip2region.DbMakerConfigException;
+import com.npsex.fsp.manager.pojo.ip2region.DbSearcher;
 import org.junit.Test;
 
 

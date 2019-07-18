@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zhengtong.fsp.manager.mapper.job.grxxsqs.GrxxsqsGenerStatusMapper">
+<mapper namespace="com.npsex.fsp.manager.mapper.job.grxxsqs.GrxxsqsGenerStatusMapper">
 
-    <resultMap id="BaseResultMap" type="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsGenerStatus">
+    <resultMap id="BaseResultMap" type="com.npsex.fsp.manager.pojo.job.grxxsqs.GrxxsqsGenerStatus">
         <id column="gener_status_id" property="generStatusId"/>
         <result column="grxxsqs_uuid" property="grxxsqsUuid"/>
         <result column="generate_status" property="generateStatus"/>
@@ -10,7 +10,7 @@
         <result column="update_time" property="updateTime"/>
     </resultMap>
 
-    <resultMap id="contractInfoMap" type="com.zhengtong.fsp.manager.pojo.ContractInfoEntity">
+    <resultMap id="contractInfoMap" type="com.npsex.fsp.manager.pojo.ContractInfoEntity">
         <id column="gener_status_id" property="generStatusId"/>
         <result column="grxxsqs_uuid" property="grxxsqsUuid"/>
         <result column="product_type" property="productType"/>
@@ -37,14 +37,14 @@
         where gener_status_id = #{generStatusId}
     </delete>
 
-    <insert id="insert" parameterType="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsGenerStatus">
+    <insert id="insert" parameterType="com.npsex.fsp.manager.pojo.job.grxxsqs.GrxxsqsGenerStatus">
         insert into t_grxxsqs_gener_status (gener_status_id, grxxsqs_uuid, generate_status,
         create_time, update_time)
         values (#{generStatusId}, #{grxxsqsUuid}, #{generateStatus},
         #{createTime}, #{updateTime})
     </insert>
 
-    <insert id="insertSelective" parameterType="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsGenerStatus">
+    <insert id="insertSelective" parameterType="com.npsex.fsp.manager.pojo.job.grxxsqs.GrxxsqsGenerStatus">
         insert into t_grxxsqs_gener_status
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="generStatusId != null">
@@ -82,7 +82,7 @@
         </trim>
     </insert>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsGenerStatus">
+    <update id="updateByPrimaryKeySelective" parameterType="com.npsex.fsp.manager.pojo.job.grxxsqs.GrxxsqsGenerStatus">
         update t_grxxsqs_gener_status
         <set>
             <if test="grxxsqsUuid != null">
@@ -101,7 +101,7 @@
         where gener_status_id = #{generStatusId}
     </update>
 
-    <update id="updateByPrimaryKey" parameterType="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsGenerStatus">
+    <update id="updateByPrimaryKey" parameterType="com.npsex.fsp.manager.pojo.job.grxxsqs.GrxxsqsGenerStatus">
         update t_grxxsqs_gener_status
         set grxxsqs_uuid = #{grxxsqsUuid},
         generate_status = #{generateStatus},

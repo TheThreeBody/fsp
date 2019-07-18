@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper
-	namespace="com.zhengtong.fsp.manager.mapper.vocs.PersonalInformationJobMapper">
+	namespace="com.npsex.fsp.manager.mapper.vocs.PersonalInformationJobMapper">
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 	<resultMap id="GrxxsqsGenerStatusResultMap"
-		type="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsGenerStatus">
+		type="com.npsex.fsp.manager.pojo.job.grxxsqs.GrxxsqsGenerStatus">
 		<id column="gener_status_id" property="generStatusId" />
 		<result column="grxxsqs_uuid" property="grxxsqsUuid" />
 		<result column="generate_status" property="generateStatus" />
@@ -19,7 +19,7 @@
 
 
 	<resultMap id="GrxxsqsParamsResultMap"
-		type="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
+		type="com.npsex.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
 		<id column="grxxsqs_id" property="grxxsqsId" />
 		<result column="grxxsqs_uuid" property="grxxsqsUuid" />
 		<result column="product_type" property="productType" />
@@ -44,7 +44,7 @@
 		cust_mobile, params_bk1, params_bk2, update_time
 	</sql>
 
-	<insert id="insertGrxxsqsParams" parameterType="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
+	<insert id="insertGrxxsqsParams" parameterType="com.npsex.fsp.manager.pojo.job.grxxsqs.GrxxsqsParams">
 		insert into t_grxxsqs_params
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="grxxsqsId != null">
@@ -131,7 +131,7 @@
 	</insert>
 
 	<insert id="insertGrxxsqsGenerStatus"
-		parameterType="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GrxxsqsGenerStatus">
+		parameterType="com.npsex.fsp.manager.pojo.job.grxxsqs.GrxxsqsGenerStatus">
 		insert into t_grxxsqs_gener_status
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="generStatusId != null">
@@ -171,7 +171,7 @@
 
 	<select id="queryEsurfingCreditPersonalInfo"
 		parameterType="map"
-		resultType="com.zhengtong.fsp.manager.pojo.quartz.CommonPersonalInfo">
+		resultType="com.npsex.fsp.manager.pojo.quartz.CommonPersonalInfo">
 		SELECT
 		'1' as productType,
 		tc.cust_id as custId,
@@ -188,7 +188,7 @@
 
 	<select id="queryEsurfingPersonalInfo"
 		parameterType="map"
-		resultType="com.zhengtong.fsp.manager.pojo.quartz.CommonPersonalInfo">
+		resultType="com.npsex.fsp.manager.pojo.quartz.CommonPersonalInfo">
 		SELECT
 		'2' as productType,
 		tcp.create_time as creditTime,
@@ -204,7 +204,7 @@
 
 	<select id="queryGobooPersonalInfo"
 		parameterType="map"
-		resultType="com.zhengtong.fsp.manager.pojo.quartz.CommonPersonalInfo">
+		resultType="com.npsex.fsp.manager.pojo.quartz.CommonPersonalInfo">
 		SELECT
 		'4' as productType,
 		tcp.create_time as creditTime,
@@ -220,7 +220,7 @@
 
 	<select id="queryHebaoPersonalInfo"
 		parameterType="map"
-		resultType="com.zhengtong.fsp.manager.pojo.quartz.CommonPersonalInfo">
+		resultType="com.npsex.fsp.manager.pojo.quartz.CommonPersonalInfo">
 		SELECT
 			'3' as productType,
 			tcp.create_time as creditTime,

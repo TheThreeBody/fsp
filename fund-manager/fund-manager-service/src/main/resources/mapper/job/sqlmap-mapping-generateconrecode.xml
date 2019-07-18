@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.zhengtong.fsp.manager.mapper.job.grxxsqs.GenerateConRecodeMapper">
+<mapper namespace="com.npsex.fsp.manager.mapper.job.grxxsqs.GenerateConRecodeMapper">
 
     <sql id="recodeAttributes">
        generate_recode_id,
@@ -15,7 +15,7 @@
        update_time
     </sql>
 
-    <resultMap id="recodeMap" type="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GenerateConRecode">
+    <resultMap id="recodeMap" type="com.npsex.fsp.manager.pojo.job.grxxsqs.GenerateConRecode">
         <id column="generate_recode_id" property="generateRecodeId"/>
         <id column="grxxsqs_uuid" property="grxxsqsUuid"/>
         <result column="file_name" property="fileName"/>
@@ -37,7 +37,7 @@
     delete from t_grxxsqs_recode
     where generate_recode_id = #{generateRecodeId}
   </delete>
-    <insert id="insert" parameterType="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GenerateConRecode">
+    <insert id="insert" parameterType="com.npsex.fsp.manager.pojo.job.grxxsqs.GenerateConRecode">
     insert into t_grxxsqs_recode (grxxsqs_uuid,file_name, file_url,
       file_type, cust_id, product_type,
       create_time, update_time)
@@ -46,7 +46,7 @@
       #{createTime}, #{updateTime})
   </insert>
 
-    <insert id="insertSelective" parameterType="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GenerateConRecode">
+    <insert id="insertSelective" parameterType="com.npsex.fsp.manager.pojo.job.grxxsqs.GenerateConRecode">
         insert into t_grxxsqs_recode
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="grxxsqsUuid != null">
@@ -101,7 +101,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GenerateConRecode">
+    <update id="updateByPrimaryKeySelective" parameterType="com.npsex.fsp.manager.pojo.job.grxxsqs.GenerateConRecode">
         update t_grxxsqs_recode
         <set>
             <if test="grxxsqsUuid != null and grxxsqsUuid != '' ">
@@ -131,7 +131,7 @@
         </set>
         where generate_recode_id = #{generateRecodeId}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.zhengtong.fsp.manager.pojo.job.grxxsqs.GenerateConRecode">
+    <update id="updateByPrimaryKey" parameterType="com.npsex.fsp.manager.pojo.job.grxxsqs.GenerateConRecode">
         update t_grxxsqs_recode
         set grxxsqs_uuid = #{grxxsqsUuid},
         file_name = #{fileName},
