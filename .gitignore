@@ -23,9 +23,14 @@
 *.rar
 
 # intellij file
-fsp-commons/fsp-commons.iml
+
+fsp-commons.iml
 fsp-manager.iml
+fund-manager-pojo.iml
+fund-manager-service.iml
+fund-manager-web.iml
 fsp.iml
+
 V1_0_1__quartz_mysql_innodb.sql
 V1_0_0__fspmanager_init.sql
 V1_0_0_fsp_business_base.sql
