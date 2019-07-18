@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="fund-manager-web:war">
-    <output-path>$PROJECT_DIR$/fund-manager/fund-manager-web/target</output-path>
-    <root id="archive" name="fund-manager.war">
-      <element id="artifact" artifact-name="fund-manager-web:war exploded" />
-    </root>
-  </artifact>
-</component>
