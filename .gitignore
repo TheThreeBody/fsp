@@ -25,10 +25,10 @@
 # intellij file
 
 fsp-commons.iml
-fsp-manager.iml
-fund-manager-pojo.iml
-fund-manager-service.iml
-fund-manager-web.iml
+fund-manager/fsp-manager.iml
+fund-manager/fund-manager-pojo/fund-manager-pojo.iml
+fund-manager/fund-manager-service/fund-manager-service.iml
+fund-manager/fund-manager-web/fund-manager-web.iml
 fsp.iml
 
 jdbc.properties
